@@ -1,0 +1,40 @@
+{
+    "name": "inspirenmy/cms",
+    "description": "CMS library",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Hui Yang",
+            "email": "chy1988@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "2.0.*",
+		"inspirenmy/yii2-core": "@stable",
+		"2amigos/yii2-taggable-behavior": "~1.0",
+        "intervention/image": "^2.4",
+        "kartik-v/yii2-tree-manager": "@dev",
+        "creocoder/yii2-translateable": "^1.0"
+	},
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+		{
+			"type": "composer",
+			"url": "http://137.59.109.82/~proinspiren/satis/inspirenmy/packages2.json"
+		}
+	],
+    "autoload": {
+        "psr-4": {
+			"common\\" : "src/common",
+			"frontend\\" : "src/frontend",
+			"backend\\" : "src/backend",
+			"console\\" : "src/console",
+			"tests\\" : "tests"
+		}
+    }
+}
