@@ -1,0 +1,103 @@
+<?php
+
+namespace common\modules\tag\behaviors;
+
+use yii\db\Query;
+use common\modules\tag\models\Tag;
+
+class TaggableBehavior extends \dosamigos\taggable\Taggable {
+	public $modelClassId;
+	public $modelClassIdAttribute = 'model_class_id';
+	
+	public function __get($name)
+    {
+        //return $this->getTagNames();
+    }
+	
+	public function afterSave($event)
+    {
+        if ($this->tagValues === null) {
+            $this->tagValues = $this->owner->{$this->attribute};
+        }
+        if (!$this->owner->getIsNewRecord()) {
+            $this->beforeDelete($event);
+        }
+        $names = array_unique(preg_split(
+            '/\s*,\s*/u',
+            preg_replace(
+                '/\s+/u',
+                ' ',
+                is_array($this->tagValues)
+                    ? implode(',', $this->tagValues)
+                    : $this->tagValues
+            ),
+            -1,
+            PREG_SPLIT_NO_EMPTY
+        ));
+        $relation = $this->owner->getRelation($this->relation);
+        $pivot = $relation->via->from[0];
+        /** @var ActiveRecord $class */
+        $class = $relation->modelClass;
+        $rows = [];
+        $updatedTags = [];
+        foreach ($names as $name) {
+            $tag = $class::findOne([$this->name => $name, $this->modelClassIdAttribute => $this->modelClassId]);
+            if ($tag === null) {
+                $tag = new $class();
+				$tag->{$this->modelClassIdAttribute} = $this->modelClassId;
+                $tag->{$this->name} = $name;
+            }
+            $tag->{$this->frequency}++;
+            if ($tag->save()) {
+                $updatedTags[] = $tag;
+                $rows[] = [$this->owner->getPrimaryKey(), $tag->getPrimaryKey(), $this->modelClassId];
+            }
+        }
+        if (!empty($rows)) {
+            $this->owner->getDb()
+                ->createCommand()
+                ->batchInsert($pivot, [key($relation->via->link), current($relation->link), $this->modelClassIdAttribute], $rows)
+                ->execute();
+        }
+        $this->owner->populateRelation($this->relation, $updatedTags);
+    }
+	
+	public function beforeDelete($event)
+    {
+        $relation = $this->owner->getRelation($this->relation);
+        $pivot = $relation->via->from[0];
+        /** @var ActiveRecord $class */
+        $class = $relation->modelClass;
+        $query = new Query();
+        $pks = $query
+            ->select(current($relation->link))
+            ->from($pivot)
+            ->where([
+				key($relation->via->link) => $this->owner->getPrimaryKey(),
+				$this->modelClassIdAttribute => $this->modelClassId,
+			])
+            ->column($this->owner->getDb());
+        if (!empty($pks)) {
+            $class::updateAllCounters([$this->frequency => -1], ['in', $class::primaryKey(), $pks]);
+        }
+        $this->owner->getDb()
+            ->createCommand()
+            ->delete($pivot, [
+				key($relation->via->link) => $this->owner->getPrimaryKey(),
+				$this->modelClassIdAttribute => $this->modelClassId,
+			])
+            ->execute();
+        
+        if ($this->removeUnusedTags)
+        {
+            $class::deleteAll([$this->frequency => 0]);
+        }
+    }
+
+	public function getBehaviorRelation($modelClassId) {
+		return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+			->onCondition(['model_class_id' => $modelClassId])
+			->viaTable('{{%tag_map}}', ['model_id' => 'id']);
+	}
+
+}
