@@ -16,6 +16,8 @@
 		"2amigos/yii2-taggable-behavior": "~1.0",
         "intervention/image": "^2.4",
         "kartik-v/yii2-tree-manager": "@dev",
+		"asofter/yii2-imperavi-redactor": "*",
+		"evgeniyrru/yii2-slick" : "*",
         "creocoder/yii2-translateable": "^1.0"
 	},
     "repositories": [
