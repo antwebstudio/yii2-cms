@@ -8,10 +8,24 @@ use common\modules\tag\models\Tag;
 class TaggableBehavior extends \dosamigos\taggable\Taggable {
 	public $modelClassId;
 	public $modelClassIdAttribute = 'model_class_id';
+	public $asArray = true;
 	
 	public function __get($name)
     {
-        //return $this->getTagNames();
+        return $this->getTagNames();
+    }
+	
+	private function getTagNames()
+    {
+        $items = [];
+        $tags=$this->owner->{$this->relation};
+        if (is_array($tags)){
+            foreach ($tags as $tag) {
+                $items[] = $tag->{$this->name};
+            }
+        }
+		//throw new \Exception(print_r($items,1));
+        return $this->asArray ? $items : implode(',', $items);
     }
 	
 	public function afterSave($event)

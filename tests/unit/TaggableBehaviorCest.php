@@ -15,27 +15,64 @@ class TaggableBehaviorCest
     // tests
     public function testAssignTag(UnitTester $I)
     {
+		$behavior = [
+			'class' => 'common\modules\tag\behaviors\TaggableBehavior',
+			'attribute' => 'myTags',
+			'modelClassId' => \common\models\ModelClass::getClassId(Organizer::class),
+		];
 		$model = new Organizer([
-			'as taggable' => [
-				'class' => 'common\modules\tag\behaviors\TaggableBehavior',
-				'attribute' => 'myTags',
-				'modelClassId' => \common\models\ModelClass::getClassId(Organizer::class),
-			],
+			'as taggable' => $behavior,
 		]);
 		
 		$model->myTags = ['abc'];
 		if (!$model->save()) throw new \Exception(print_r($model->errors, 1));
 		
 		$I->assertEquals(1, count($model->tags));
+		$I->assertEquals(['abc'], $model->myTags);
 		
 		$model->myTags = ['abc', 'def'];
 		if (!$model->save()) throw new \Exception(print_r($model->errors, 1));
 		
 		$I->assertEquals(2, count($model->tags));
+		$I->assertEquals(['abc', 'def'], $model->myTags);
 		
 		$model = Organizer::findOne($model->id);
+		$model->attachBehaviors([$behavior]);
 
 		$I->assertEquals(2, count($model->tags));
+		$I->assertEquals(['abc', 'def'], $model->myTags);
+    }
+	
+	public function testAssignTagByLoad(UnitTester $I)
+    {
+		$behavior = [
+			'class' => 'common\modules\tag\behaviors\TaggableBehavior',
+			'attribute' => 'myTags',
+			'modelClassId' => \common\models\ModelClass::getClassId(Organizer::class),
+		];
+		$model = new Organizer([
+			'as taggable' => $behavior,
+		]);
+		$formName = $model->formName();
+		
+		$model->load([$formName => ['myTags' => ['abc']]]);
+		if (!$model->save()) throw new \Exception(print_r($model->errors, 1));
+		
+		$I->assertEquals(1, count($model->tags));
+		$I->assertEquals(['abc'], $model->myTags);
+		
+		$model->load([$formName => ['myTags' => ['abc', 'def']]]);
+		if (!$model->save()) throw new \Exception(print_r($model->errors, 1));
+		
+		$I->assertEquals(2, count($model->tags));
+		$I->assertEquals(['abc', 'def'], $model->myTags);
+		
+		$model = Organizer::findOne($model->id);
+		$model->attachBehaviors([$behavior]);
+
+		$I->assertEquals(2, count($model->tags));
+		$I->assertEquals(['abc', 'def'], $model->myTags);
+		
     }
 	
     public function testMultipleAttributeAssignTag(UnitTester $I)
@@ -106,7 +143,7 @@ class Organizer extends \yii\db\ActiveRecord {
 	
 	public function rules() {
 		return [
-			[['name'], 'safe'],
+			[['name', 'myTags'], 'safe'],
 			[['name'], 'default', 'value' => 'test'],
 		];
 	}
