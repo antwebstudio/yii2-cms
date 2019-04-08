@@ -108,10 +108,15 @@ class TaggableBehavior extends \dosamigos\taggable\Taggable {
         }
     }
 
-	public function getBehaviorRelation($modelClassId) {
-		return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
-			->onCondition(['model_class_id' => $modelClassId])
-			->viaTable('{{%tag_map}}', ['model_id' => 'id']);
+	public function getTagsRelation() {
+		return $this->owner->hasMany(Tag::className(), ['id' => 'tag_id'])
+			//->onCondition(['{{%tag_map}}.model_class_id' => $modelClassId])
+			->viaTable('{{%tag_map}}', ['model_id' => 'id'], function($query) {
+				$query->andWhere([
+				//'category_map.model_id' => $this->owner->id,
+					'{{%tag_map}}.model_class_id' => \common\models\ModelClass::getClassId(get_class($this->owner))
+				]);
+			});
 	}
 
 }
