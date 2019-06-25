@@ -31,6 +31,20 @@
 			"url": "http://packagist.antwebstudio.com"
 		}
 	],
+	"scripts": {
+		"post-install-cmd": "@setup",
+		"migrate-test" : "@php tests/bin/yii migrate --interactive=0 --migrationPath=@yii/rbac/migrations,@common/migrations/db,@tests/migrations/db",
+		"test" : [
+			"@setup", 
+			"@run-test"
+		],
+		"yii": "@php ./tests/bin/yii",
+		"setup": [
+			"@php ./tests/bin/yii module/enable cms",
+			"@migrate-test"
+		],
+		"run-test" : "@php ./vendor/codeception/codeception/codecept run unit"
+	},
     "autoload": {
         "psr-4": {
 			"common\\" : "src/common",
@@ -39,5 +53,8 @@
 			"console\\" : "src/console",
 			"tests\\" : "tests"
 		}
+    },
+    "require-dev": {
+        "codeception/codeception": "3.0.x-dev"
     }
 }

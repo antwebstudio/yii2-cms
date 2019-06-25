@@ -4,6 +4,7 @@ namespace common\modules\tag\behaviors;
 
 use yii\db\Query;
 use common\modules\tag\models\Tag;
+use common\modules\tag\models\TagMap;
 
 class TaggableBehavior extends \dosamigos\taggable\Taggable {
 	public $modelClassId;
@@ -107,6 +108,11 @@ class TaggableBehavior extends \dosamigos\taggable\Taggable {
             $class::deleteAll([$this->frequency => 0]);
         }
     }
+	
+	public function getTagMap() {
+		return $this->owner->hasMany(TagMap::className(), ['model_id' => 'id'])
+			->onCondition(['tagMap.model_class_id' => $this->modelClassId]);
+	}
 
 	public function getTagsRelation() {
 		return $this->owner->hasMany(Tag::className(), ['id' => 'tag_id'])
