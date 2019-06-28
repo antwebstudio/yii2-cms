@@ -13,6 +13,9 @@ class TaggableBehavior extends \dosamigos\taggable\Taggable {
 	
 	public function __get($name)
     {
+		if (isset($this->tagValues)) {
+			return $this->tagValues;
+		}
         return $this->getTagNames();
     }
 	

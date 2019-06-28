@@ -25,12 +25,18 @@ class TaggableBehaviorCest
 		]);
 		
 		$model->myTags = ['abc'];
+		
+		$I->assertEquals(['abc'], $model->myTags);
+		
 		if (!$model->save()) throw new \Exception(print_r($model->errors, 1));
 		
 		$I->assertEquals(1, count($model->tags));
 		$I->assertEquals(['abc'], $model->myTags);
 		
 		$model->myTags = ['abc', 'def'];
+		
+		$I->assertEquals(['abc', 'def'], $model->myTags);
+		
 		if (!$model->save()) throw new \Exception(print_r($model->errors, 1));
 		
 		$I->assertEquals(2, count($model->tags));
