@@ -55,7 +55,7 @@ class ImageFieldTypeCest
 	
 	public function testBeforeContentValidate(UnitTester $I) {
 		$field = $I->grabFixture('field')->getModel('image');
-		$category = $I->grabFixture('category')->getModel(0);
+		//$category = $I->grabFixture('category')->getModel(0);
 		
 		$entryType = new EntryType([
 			'name' => 'test entry type',
@@ -97,7 +97,7 @@ class ImageFieldTypeCest
 	
 	public function testAfterContentSave(UnitTester $I) {
 		$field = $I->grabFixture('field')->getModel('image');
-		$category = $I->grabFixture('category')->getModel(0);
+		//$category = $I->grabFixture('category')->getModel(0);
 		
 		$entryType = new EntryType([
 			'name' => 'test entry type',
@@ -141,7 +141,7 @@ class ImageFieldTypeCest
 	
 	public function testAfterContentFind(UnitTester $I) {
 		$field = $I->grabFixture('field')->getModel('image');
-		$category = $I->grabFixture('category')->getModel(0);
+		//$category = $I->grabFixture('category')->getModel(0);
 		
 		$entryType = new EntryType([
 			'name' => 'test entry type',
@@ -244,10 +244,10 @@ class ImageFieldTypeCest
                 'class' => \tests\fixtures\ContentDataFixture::className(),
                 'dataFile' => '@tests/fixtures/data/content_data.php',
             ],
-            'category' => [
+            /*'category' => [
                 'class' => \tests\fixtures\CategoryFixture::className(),
                 'dataFile' => '@tests/fixtures/data/category.php',
-            ],
+            ],*/
 			'relation' => [
                 'class' => \tests\fixtures\RelationFixture::className(),
                 'dataFile' => '@tests/fixtures/data/relation.php',

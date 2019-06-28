@@ -130,6 +130,10 @@ class Article extends ActiveRecord
         ];
     }
 	
+	public function getCategories() {
+		return $this->getCategoriesRelation('article');
+	}
+	
 	public function getTranslations()
     {
         return $this->hasMany(ArticleLang::className(), ['master_id' => 'id']);

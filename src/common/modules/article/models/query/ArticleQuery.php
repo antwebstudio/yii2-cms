@@ -12,9 +12,17 @@ use common\models\Article;
 use yii\db\ActiveQuery;
 class ArticleQuery extends ActiveQuery
 {
-    use \common\modules\category\traits\CategorizableQueryTrait;
+    public function behaviors() {
+		return [
+			[
+				'class' => 'common\modules\category\behaviors\CategorizableQueryBehavior',
+			],
+		];
+	}
 
 	public function category($categoryId) {
+		if (YII_DEBUG) throw new \Exception('DEPRECATED');
+		
 		$this->andWhere(['category_id' => $categoryId]);
 		return $this;
 	}

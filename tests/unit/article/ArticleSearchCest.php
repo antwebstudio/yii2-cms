@@ -21,6 +21,10 @@ class ArticleSearchCest
                 'class' => \tests\fixtures\CategoryFixture::className(),
                 'dataFile' => '@tests/fixtures/data/category.php'
             ],
+            'categoryType' => [
+                'class' => \tests\fixtures\CategoryTypeFixture::className(),
+                'dataFile' => '@tests/fixtures/data/category_type.php'
+            ],
             'category_map' => [
                 'class' => \tests\fixtures\CategoryMapFixture::className(),
                 'dataFile' => '@tests/fixtures/data/category_map.php'

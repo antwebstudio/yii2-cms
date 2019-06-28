@@ -41,6 +41,7 @@
 		"yii": "@php ./tests/bin/yii",
 		"setup": [
 			"@php ./tests/bin/yii module/enable cms",
+			"@php ./tests/bin/yii module/enable article",
 			"@migrate-test"
 		],
 		"run-test" : "@php ./vendor/codeception/codeception/codecept run unit"
