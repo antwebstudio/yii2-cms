@@ -12,8 +12,6 @@ class M170413032827_alter_timestamp_column extends Migration
 		$this->alterZeroDateTimeColumn('{{%cms_field_layout}}', ['created_date']);
 		$this->alterZeroDateTimeColumn('{{%cms_field_layout_tab}}', ['created_date']);
 		$this->alterZeroDateTimeColumn('{{%cms_field_layout_field}}', ['created_date']);
-		$this->alterZeroDateTimeColumn('{{%cms_relation}}', ['created_date']);
-		$this->alterZeroDateTimeColumn('{{%cms_structure}}', ['created_date']);
     }
 
     public function down()

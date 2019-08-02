@@ -12,13 +12,15 @@ $entry->processValue();
 
 			<?php if (isset($entry->featuredImage)): ?>
 				<?= Html::img($entry->featuredImage) ?>
-			<?php endif; ?>
+			<?php endif ?>
 
-			<?= $entry->articleContent ?>
+			<?php if (isset($entry->articleContent)): ?>
+				<?= $entry->articleContent ?>
+			<?php endif ?>
 
 			<?php if (isset($entry->link)): ?>
 				<?= $entry->link ?>
-			<?php endif; ?>
+			<?php endif ?>
 		</div>
 	</div>
 </div>
