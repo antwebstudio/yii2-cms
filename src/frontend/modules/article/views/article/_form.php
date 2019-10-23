@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\ckeditor\CKEditor;
-use common\modules\article\models\ArticleCategory;
+use ant\article\models\ArticleCategory;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use trntv\filekit\widget\Upload;
 /* @var $this yii\web\View */
-/* @var $model common\modules\article\models\Article */
+/* @var $model ant\article\models\Article */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

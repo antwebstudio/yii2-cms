@@ -12,7 +12,7 @@ class FormController extends \yii\web\Controller
     }
 	
 	public function actionRegister() {
-		$model = new \common\models\ContactForm;
+		$model = new \ant\models\ContactForm;
 		$model->created_ip = \Yii::$app->request->userIp;
 		if ($model->load(\Yii::$app->request->post()) && $model->save()) {
 			\Yii::$app->session->setFlash('success', \Yii::t('app', 'Form successfully submitted'));

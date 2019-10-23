@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use common\rbac\Permission;
-use common\modules\category\models\Category;
+use ant\rbac\Permission;
+use ant\category\models\Category;
 use yii\helpers\ArrayHelper;
 $controllerClassName = $this->context->className();
 /* @var $this yii\web\View */
-/* @var $searchModel common\modules\article\models\ArticleSearch */
+/* @var $searchModel ant\article\models\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $this->title = Yii::t('app', 'Articles');
 $this->params['breadcrumbs'][] = $this->title;
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'visibleButtons' => [
-                    'delete' => Yii::$app->user->can(common\rbac\Permission::of('delete', $controllerClassName
+                    'delete' => Yii::$app->user->can(ant\rbac\Permission::of('delete', $controllerClassName
                         )->name),
                 ],
             ],

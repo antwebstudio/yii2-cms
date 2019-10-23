@@ -5,7 +5,7 @@ use yii\bootstrap\ActiveForm;
 use trntv\filekit\widget\Upload;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ArticleCategory */
+/* @var $model ant\models\ArticleCategory */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $categories array */
 ?>

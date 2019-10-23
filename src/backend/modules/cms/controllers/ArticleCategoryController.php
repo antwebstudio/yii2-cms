@@ -3,8 +3,8 @@
 namespace backend\modules\cms\controllers;
 
 use Yii;
-use common\models\ArticleCategory;
-use common\models\search\ArticleCategorySearch;
+use ant\models\ArticleCategory;
+use ant\models\search\ArticleCategorySearch;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

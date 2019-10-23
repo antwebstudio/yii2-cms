@@ -9,7 +9,7 @@ use yii\widgets\LinkSorter;
 $controllerClassName = $this->context->className();
 $this->blocks['content-header'] = '';
 /* @var $this yii\web\View */
-/* @var $searchModel common\modules\article\models\ArticleSearch */
+/* @var $searchModel ant\article\models\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Articles');

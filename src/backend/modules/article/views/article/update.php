@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 /* @var $this yii\web\View */
-/* @var $model common\modules\article\models\Article */
+/* @var $model ant\article\models\Article */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Article',

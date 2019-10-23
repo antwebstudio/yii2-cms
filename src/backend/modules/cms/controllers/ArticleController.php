@@ -3,9 +3,9 @@
 namespace backend\modules\cms\controllers;
 
 use Yii;
-use common\models\Article;
-use common\models\search\ArticleSearch;
-use \common\models\ArticleCategory;
+use ant\models\Article;
+use ant\models\search\ArticleSearch;
+use \ant\models\ArticleCategory;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

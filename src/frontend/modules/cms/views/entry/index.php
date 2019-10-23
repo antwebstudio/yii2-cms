@@ -1,5 +1,5 @@
 <?php 
-use common\modules\cms\models\Entry;
+use ant\cms\models\Entry;
 
 $entries = Entry::find()->type($type)->all();
 ?>

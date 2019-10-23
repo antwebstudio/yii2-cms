@@ -1,6 +1,6 @@
 <?php 
 use yii\helpers\Html;
-use common\modules\cms\models\Entry;
+use ant\cms\models\Entry;
 
 $entry->processValue();
 ?>

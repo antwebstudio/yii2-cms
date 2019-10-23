@@ -3,10 +3,10 @@
 namespace backend\modules\article\controllers;
 
 use Yii;
-use common\modules\article\models\Article;
-use common\modules\article\models\ArticleSearch;
-use common\modules\article\models\ArticleAttachment;
-use common\modules\category\models\Category;
+use ant\article\models\Article;
+use ant\article\models\ArticleSearch;
+use ant\article\models\ArticleAttachment;
+use ant\category\models\Category;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use trntv\filekit\actions\DeleteAction;

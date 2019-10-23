@@ -6,8 +6,8 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Article */
-/* @var $categories common\models\ArticleCategory[] */
+/* @var $model ant\models\Article */
+/* @var $categories ant\models\ArticleCategory[] */
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 

@@ -36,11 +36,11 @@ class Module extends \yii\base\Module
         'default' => [
             'model' => [
                 'article' => [   
-                    'class' => 'common\modules\article\models\Article',
+                    'class' => 'ant\article\models\Article',
                     'status' => 0,
                 ],
                 'articleCategory' => [   
-                    'class' => 'common\modules\article\models\ArticleCategory',
+                    'class' => 'ant\article\models\ArticleCategory',
                     'status' => 0,
                 ],
             ],

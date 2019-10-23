@@ -10,15 +10,15 @@ use yii\helpers\ArrayHelper;
 use yii\web\ForbiddenHttpException;
 use trntv\filekit\actions\DeleteAction;
 use trntv\filekit\actions\UploadAction;
-use common\modules\user\models\User;
-use common\modules\article\models\Article;
-use common\modules\article\models\ArticleCategory;
-use common\modules\article\models\ArticleSearch;
-use common\modules\article\models\ArticleAttachment;
-use common\modules\subscription\models\Subscription;
-use common\modules\category\models\CategoryMap;
-use common\modules\category\models\Category;
-use common\modules\category\models\CategoryType;
+use ant\user\models\User;
+use ant\article\models\Article;
+use ant\article\models\ArticleCategory;
+use ant\article\models\ArticleSearch;
+use ant\article\models\ArticleAttachment;
+use ant\subscription\models\Subscription;
+use ant\category\models\CategoryMap;
+use ant\category\models\Category;
+use ant\category\models\CategoryType;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -40,7 +40,7 @@ class ArticleController extends Controller
             ],
             'access' =>
             [
-                'class' => \common\rbac\ModelAccessControl::className(),
+                'class' => \ant\rbac\ModelAccessControl::className(),
             ],
         ];
     }
@@ -77,7 +77,7 @@ class ArticleController extends Controller
         $model = new Subscription();    
         $url = '/casey/member/index';
         $param = [];
-        if(Yii::$app->user->can(\common\rbac\Permission::of('index', get_class($model)
+        if(Yii::$app->user->can(\ant\rbac\Permission::of('index', get_class($model)
         )->name)) {
             return false;
         } else {
@@ -151,7 +151,7 @@ class ArticleController extends Controller
     }
     
     protected function checkCategoryTypeAccess($type, $throwException = true) {
-        $permission = \common\rbac\Permission::of('index', Category::className())->type($type);
+        $permission = \ant\rbac\Permission::of('index', Category::className())->type($type);
 
         if (!\Yii::$app->user->can($permission->name)) {
             if ($throwException) throw new \yii\web\ForbiddenHttpException('Permission Denied. '.(YII_DEBUG ? '('.$permission->name.')' : ''));

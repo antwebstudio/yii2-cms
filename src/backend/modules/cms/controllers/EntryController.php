@@ -7,10 +7,10 @@ use yii\data\ActiveDataProvider;
 use trntv\filekit\actions\DeleteAction;
 use trntv\filekit\actions\UploadAction;
 use Intervention\Image\ImageManagerStatic;
-use common\modules\cms\models\Entry;
-use common\modules\cms\models\Category;
-use common\modules\cms\models\EntryType;
-use common\modules\cms\components\Content;
+use ant\cms\models\Entry;
+use ant\cms\models\Category;
+use ant\cms\models\EntryType;
+use ant\cms\components\Content;
 
 /**
  * Default controller for the `cms` module
@@ -50,7 +50,7 @@ class EntryController extends Controller
 		$entryType = EntryType::findOne(['handle' => $type]);
 		$className = $entryType->content_type;
 		
-		if (strpos($className, '\\') === false) $className = '\common\modules\cms\models\\'.$className;
+		if (strpos($className, '\\') === false) $className = '\ant\cms\models\\'.$className;
 		
 		$dataProvider = new ActiveDataProvider([
 			'query' => $className::find()->type($type),

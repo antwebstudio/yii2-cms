@@ -3,7 +3,7 @@
 namespace backend\modules\cms\controllers;
 
 use yii\web\Controller;
-use common\models\ContactForm;
+use ant\models\ContactForm;
 
 /**
  * Default controller for the `cms` module

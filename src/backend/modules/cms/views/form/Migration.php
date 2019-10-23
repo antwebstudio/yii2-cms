@@ -1,12 +1,12 @@
 <?php
 
-namespace common\rbac;
+namespace ant\rbac;
 
 use Yii;
 use yii\base\Component;
 use yii\db\MigrationInterface;
 
-use common\rbac\Permission;
+use ant\rbac\Permission;
 
 /**
  * @author Eugene Terentev <eugene@terentev.net>

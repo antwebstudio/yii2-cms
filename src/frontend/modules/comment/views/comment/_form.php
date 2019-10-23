@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\modules\comment\models\Comment */
+/* @var $model ant\comment\models\Comment */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

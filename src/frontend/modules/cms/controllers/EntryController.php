@@ -2,8 +2,8 @@
 
 namespace frontend\modules\cms\controllers;
 
-use common\modules\cms\models\Entry;
-use common\modules\cms\components\Content;
+use ant\cms\models\Entry;
+use ant\cms\components\Content;
 
 class EntryController extends \yii\web\Controller
 {

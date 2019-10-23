@@ -3,7 +3,7 @@
 namespace frontend\modules\comment\controllers;
 
 use Yii;
-use common\modules\comment\models\Comment;
+use ant\comment\models\Comment;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,7 +21,7 @@ class CommentController extends Controller
     {
         return [
 			'access' => [
-				'class' => \common\rbac\ModelAccessControl::className(),
+				'class' => \ant\rbac\ModelAccessControl::className(),
 			],
             'verbs' => [
                 'class' => VerbFilter::className(),

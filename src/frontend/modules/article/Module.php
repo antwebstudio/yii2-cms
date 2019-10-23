@@ -26,7 +26,7 @@ class Module extends \yii\base\Module
         'default' => [
             'model' => [
                 'article' => [   
-                    'class' => 'common\modules\article\models\Article',
+                    'class' => 'ant\article\models\Article',
                     'status' => 0,
                 ],
             ],
