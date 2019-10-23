@@ -3,6 +3,6 @@
 return [
 	[
 		'id' => 1,
-		'class_name' => 'common\modules\article\models\Article',
+		'class_name' => 'ant\article\models\Article',
 	],
 ];

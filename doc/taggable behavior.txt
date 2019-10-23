@@ -1,0 +1,24 @@
+add 
+			[
+				'class' => \ant\tag\behaviors\TaggableBehavior::class,
+				//'relation' => 'tags',
+				'attribute' => 'tags',
+				//'modelClassId' => \ant\models\ModelClass::getClassId((self::class)),
+			],
+			
+to class
+
+
+
+add input field to tags
+
+		<?= $form->field($model->product, 'tags')->widget(\kartik\select2\Select2::className(), [
+			'data' => array_combine($model->product->tag_ids, $model->product->tag_ids),
+			'options' => ['placeholder' => 'Add a tag ...', 'multiple' => true],
+			
+			'pluginOptions' => [
+				'tags' => true,
+			],
+		]) ?>
+		
+add tag_ids to safe rules

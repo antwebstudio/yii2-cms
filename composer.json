@@ -12,7 +12,9 @@
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.0",
-		"inspirenmy/yii2-core": "@stable",
+		"antweb/yii2-core": "*",
+		"antweb/yii2-core-module": "*",
+		"antweb/yii2-user": "*",
 		"2amigos/yii2-taggable-behavior": "~1.0",
         "intervention/image": "^2.4",
         "kartik-v/yii2-tree-manager": "*",
@@ -48,6 +50,7 @@
 	},
     "autoload": {
         "psr-4": {
+			"ant\\" : "src",
 			"common\\" : "src/common",
 			"frontend\\" : "src/frontend",
 			"backend\\" : "src/backend",

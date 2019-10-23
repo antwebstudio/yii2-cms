@@ -9,5 +9,5 @@ use yii\test\ActiveFixture;
  */
 class RelationFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\cms\models\Relation';
+    public $modelClass = 'ant\cms\models\Relation';
 }

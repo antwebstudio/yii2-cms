@@ -9,7 +9,7 @@ use yii\test\ActiveFixture;
  */
 class CmsCategoryFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\cms\models\Category';
+    public $modelClass = 'ant\cms\models\Category';
 	public $depends = [
         'tests\fixtures\ContentDataFixture',
     ];

@@ -1,8 +1,8 @@
 <?php
 //namespace tests\codeception\common\article;
 //use tests\codeception\common\UnitTester;
-use common\modules\article\models\Article;
-use common\modules\article\models\ArticleSearch;
+use ant\article\models\Article;
+use ant\article\models\ArticleSearch;
 
 class ArticleSearchCest
 {

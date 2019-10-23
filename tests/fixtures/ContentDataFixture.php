@@ -9,7 +9,7 @@ use yii\test\ActiveFixture;
  */
 class ContentDataFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\cms\models\ContentData';
+    public $modelClass = 'ant\cms\models\ContentData';
 	public $depends = [
         'tests\fixtures\EntryTypeFixture',
 	];

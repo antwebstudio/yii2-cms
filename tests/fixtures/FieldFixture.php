@@ -9,5 +9,5 @@ use yii\test\ActiveFixture;
  */
 class FieldFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\cms\models\Field';
+    public $modelClass = 'ant\cms\models\Field';
 }

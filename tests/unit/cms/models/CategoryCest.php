@@ -4,10 +4,10 @@
 
 use yii\helpers\Html;
 //use tests\codeception\common\UnitTester;
-use common\modules\cms\models\EntryType;
-use common\modules\cms\models\Field;
-use common\modules\cms\models\Category;
-use common\modules\cms\models\ContentData;
+use ant\cms\models\EntryType;
+use ant\cms\models\Field;
+use ant\cms\models\Category;
+use ant\cms\models\ContentData;
 
 class CategoryCest {
 

@@ -2,7 +2,7 @@
 //namespace tests\codeception\common\cms\behaviors;
 use yii\helpers\Html;
 //use tests\codeception\common\UnitTester;
-use common\modules\cms\models\Category;
+use ant\cms\models\Category;
 
 class CmsTreeViewModelBehaviorCest
 {

@@ -9,6 +9,6 @@ use yii\test\ActiveFixture;
  */
 class ModelClassFixture extends ActiveFixture
 {
-    public $modelClass = 'common\models\ModelClass';
+    public $modelClass = 'ant\models\ModelClass';
     public $dataFile = '@tests/fixtures/data/model_class.php';
 }

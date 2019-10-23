@@ -9,5 +9,5 @@ use yii\test\ActiveFixture;
  */
 class StructureContentFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\cms\models\StructureContent';
+    public $modelClass = 'ant\cms\models\StructureContent';
 }

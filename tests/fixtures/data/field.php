@@ -1,8 +1,8 @@
 <?php
 
-use common\modules\cms\fieldtypes\PlainTextFieldType;
-use common\modules\cms\fieldtypes\CategoryFieldType;
-use common\modules\cms\fieldtypes\ImageFieldType;
+use ant\cms\fieldtypes\PlainTextFieldType;
+use ant\cms\fieldtypes\CategoryFieldType;
+use ant\cms\fieldtypes\ImageFieldType;
 
 return [
 	'plainText' => [

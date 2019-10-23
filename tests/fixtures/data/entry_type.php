@@ -1,7 +1,7 @@
 <?php
 
-use common\modules\cms\models\Category;
-use common\modules\cms\models\Entry;
+use ant\cms\models\Category;
+use ant\cms\models\Entry;
 
 return [
 	'entry' => [

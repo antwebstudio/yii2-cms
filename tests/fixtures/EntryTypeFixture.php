@@ -9,5 +9,5 @@ use yii\test\ActiveFixture;
  */
 class EntryTypeFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\cms\models\EntryType';
+    public $modelClass = 'ant\cms\models\EntryType';
 }

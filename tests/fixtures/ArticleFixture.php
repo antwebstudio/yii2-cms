@@ -9,5 +9,5 @@ use yii\test\ActiveFixture;
  */
 class ArticleFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\article\models\Article';
+    public $modelClass = 'ant\article\models\Article';
 }

@@ -3,12 +3,12 @@
 
 use yii\helpers\Html;
 //use tests\codeception\common\UnitTester;
-use common\modules\cms\models\Field;
-use common\modules\cms\models\EntryType;
-use common\modules\cms\models\Entry;
-use common\modules\cms\models\ContentData;
-use common\modules\file\models\FileStorageItem;
-use common\modules\cms\fieldtypes\ImageFieldType;
+use ant\cms\models\Field;
+use ant\cms\models\EntryType;
+use ant\cms\models\Entry;
+use ant\cms\models\ContentData;
+use ant\file\models\FileStorageItem;
+use ant\cms\fieldtypes\ImageFieldType;
 use Intervention\Image\ImageManagerStatic;
 
 class ImageFieldTypeCest
@@ -23,11 +23,11 @@ class ImageFieldTypeCest
 					'class' => '\trntv\filekit\Storage',
 					'baseUrl' => '/source',
 					'filesystem' => [
-						'class' => 'common\components\filesystem\LocalFlysystemBuilder',
+						'class' => 'ant\components\filesystem\LocalFlysystemBuilder',
 						'path' => '@tests/_output'
 					],
 					'as log' => [
-						'class' => 'common\behaviors\FileStorageLogBehavior',
+						'class' => 'ant\behaviors\FileStorageLogBehavior',
 						'component' => 'fileStorage'
 					]
 				],

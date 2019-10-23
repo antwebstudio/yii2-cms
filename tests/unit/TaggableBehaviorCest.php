@@ -1,6 +1,6 @@
 <?php
 
-use common\modules\tag\models\Tag;
+use ant\tag\models\Tag;
 
 class TaggableBehaviorCest
 {
@@ -16,9 +16,9 @@ class TaggableBehaviorCest
     public function testAssignTag(UnitTester $I)
     {
 		$behavior = [
-			'class' => 'common\modules\tag\behaviors\TaggableBehavior',
+			'class' => 'ant\tag\behaviors\TaggableBehavior',
 			'attribute' => 'myTags',
-			'modelClassId' => \common\models\ModelClass::getClassId(Organizer::class),
+			'modelClassId' => \ant\models\ModelClass::getClassId(Organizer::class),
 		];
 		$model = new Organizer([
 			'as taggable' => $behavior,
@@ -52,9 +52,9 @@ class TaggableBehaviorCest
 	public function testAssignTagByLoad(UnitTester $I)
     {
 		$behavior = [
-			'class' => 'common\modules\tag\behaviors\TaggableBehavior',
+			'class' => 'ant\tag\behaviors\TaggableBehavior',
 			'attribute' => 'myTags',
-			'modelClassId' => \common\models\ModelClass::getClassId(Organizer::class),
+			'modelClassId' => \ant\models\ModelClass::getClassId(Organizer::class),
 		];
 		$model = new Organizer([
 			'as taggable' => $behavior,
@@ -85,15 +85,15 @@ class TaggableBehaviorCest
     {
 		$model = new Organizer([
 			'as taggable' => [
-				'class' => 'common\modules\tag\behaviors\TaggableBehavior',
+				'class' => 'ant\tag\behaviors\TaggableBehavior',
 				'attribute' => 'firstTags',
-				'modelClassId' => \common\models\ModelClass::getClassId(Organizer::class),
+				'modelClassId' => \ant\models\ModelClass::getClassId(Organizer::class),
 			],
 			'as taggable2' => [
-				'class' => 'common\modules\tag\behaviors\TaggableBehavior',
+				'class' => 'ant\tag\behaviors\TaggableBehavior',
 				'attribute' => 'secondTags',
 				'relation' => 'secondTags',
-				'modelClassId' => \common\models\ModelClass::getClassId((Organizer::class).':second'),
+				'modelClassId' => \ant\models\ModelClass::getClassId((Organizer::class).':second'),
 			],
 		]);
 		
@@ -108,7 +108,7 @@ class TaggableBehaviorCest
 		
 		$model = Organizer::findOne($model->id);
 		
-		//throw new \Exception("\n".\common\models\ModelClass::getClassId((Organizer::class).':second').$this->displayTable('{{%model_class}}').$this->displayTable('{{%tag}}').$this->displayTable('{{%tag_map}}'));
+		//throw new \Exception("\n".\ant\models\ModelClass::getClassId((Organizer::class).':second').$this->displayTable('{{%model_class}}').$this->displayTable('{{%tag}}').$this->displayTable('{{%tag_map}}'));
 		
 		$I->assertEquals(1, count($model->tags));
 		$I->assertEquals(2, count($model->secondTags));
@@ -133,12 +133,12 @@ class Organizer extends \yii\db\ActiveRecord {
 	
 	public function getTags()
 	{
-		return $this->getBehaviorRelation(\common\models\ModelClass::getClassId((self::class)));
+		return $this->getBehaviorRelation(\ant\models\ModelClass::getClassId((self::class)));
 	}
 	
 	public function getSecondTags()
 	{
-		return $this->getBehaviorRelation(\common\models\ModelClass::getClassId((self::class).':second'));
+		return $this->getBehaviorRelation(\ant\models\ModelClass::getClassId((self::class).':second'));
 	}
 
 	public function getBehaviorRelation($modelClassId) {
