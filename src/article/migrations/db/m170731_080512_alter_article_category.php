@@ -2,7 +2,7 @@
 
 namespace ant\article\migrations\db;
 
-use ant\components\Migration;
+use ant\db\Migration;
 class m170731_080512_alter_article_category extends Migration
 {
 	public $tableName = '{{%article_category}}';

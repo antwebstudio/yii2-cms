@@ -2,7 +2,7 @@
 
 namespace ant\article\migrations\db;
 
-use ant\components\Migration;
+use ant\db\Migration;
 class m170802_083317_create_article_lang extends Migration
 {
     public function safeUp()

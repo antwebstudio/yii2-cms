@@ -23,7 +23,7 @@ class ImageFieldTypeCest
 					'class' => '\trntv\filekit\Storage',
 					'baseUrl' => '/source',
 					'filesystem' => [
-						'class' => 'ant\components\filesystem\LocalFlysystemBuilder',
+						'class' => 'ant\file\LocalFlysystemBuilder',
 						'path' => '@tests/_output'
 					],
 					'as log' => [

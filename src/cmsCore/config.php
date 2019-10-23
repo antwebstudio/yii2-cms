@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'id' => 'cms',
+    'id' => 'cmsCore',
     'class' => \ant\cmsCore\Module::className(),
     'isCoreModule' => false,
 	'depends' => [],

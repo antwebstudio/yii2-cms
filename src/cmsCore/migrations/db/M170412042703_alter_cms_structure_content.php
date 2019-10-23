@@ -1,8 +1,8 @@
 <?php
 
-namespace ant\cms\migrations\db;
+namespace ant\cmsCore\migrations\db;
 
-use ant\components\Migration;
+use ant\db\Migration;
 
 class M170412042703_alter_cms_structure_content extends Migration
 {

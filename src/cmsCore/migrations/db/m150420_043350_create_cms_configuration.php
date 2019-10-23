@@ -1,5 +1,5 @@
 <?php
-namespace ant\cms\migrations\db;
+namespace ant\cmsCore\migrations\db;
 
 use yii\db\Schema;
 use yii\db\Migration;

@@ -2,7 +2,7 @@
 
 namespace ant\article\migrations\db;
 
-use ant\components\Migration;
+use ant\db\Migration;
 class m180508_080512_alter_article extends Migration
 {
 	public $tableName = '{{%article}}';

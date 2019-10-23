@@ -2,7 +2,7 @@
 
 namespace ant\cms\migrations\db;
 
-use ant\components\Migration;
+use ant\db\Migration;
 
 class M170413032827_alter_timestamp_column extends Migration
 {

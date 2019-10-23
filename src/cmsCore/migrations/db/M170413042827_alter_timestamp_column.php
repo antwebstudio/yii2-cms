@@ -1,8 +1,8 @@
 <?php
 
-namespace ant\cms\migrations\db;
+namespace ant\cmsCore\migrations\db;
 
-use ant\components\Migration;
+use ant\db\Migration;
 
 class M170413042827_alter_timestamp_column extends Migration
 {

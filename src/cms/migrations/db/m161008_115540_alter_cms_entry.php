@@ -2,7 +2,7 @@
 namespace ant\cms\migrations\db;
 
 use yii\db\Schema;
-use ant\components\Migration;
+use ant\db\Migration;
 
 class m161008_115540_alter_cms_entry extends Migration
 {

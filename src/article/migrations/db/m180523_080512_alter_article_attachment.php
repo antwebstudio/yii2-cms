@@ -2,7 +2,7 @@
 
 namespace ant\article\migrations\db;
 
-use ant\components\Migration;
+use ant\db\Migration;
 class m180523_080512_alter_article_attachment extends Migration
 {
 	public $tableName = '{{%article_attachment}}';
