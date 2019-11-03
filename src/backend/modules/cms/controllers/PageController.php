@@ -8,7 +8,7 @@ use ant\models\ContactForm;
 /**
  * Default controller for the `cms` module
  */
-class FormController extends Controller
+class PageController extends Controller
 {
     /**
      * Renders the index view for the module
