@@ -1,11 +1,11 @@
 {
-    "name": "inspirenmy/yii2-cms",
+    "name": "antweb/yii2-cms",
     "description": "CMS library",
     "type": "library",
     "authors": [
         {
             "name": "Hui Yang",
-            "email": "chy1988@gmail.com"
+            "email": "chy1988@antwebstudio.com"
         }
     ],
     "minimum-stability": "dev",
