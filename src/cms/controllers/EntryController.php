@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\cms\controllers;
+namespace ant\cms\controllers;
 
 use ant\cms\models\Entry;
 use ant\cms\components\Content;

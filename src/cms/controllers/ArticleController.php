@@ -1,8 +1,8 @@
 <?php
 
-namespace frontend\modules\cms\controllers;
+namespace ant\cms\controllers;
 
-use ant\models\ArticleCategory;
+use ant\models\Article;
 use ant\models\ArticleAttachment;
 use yii\web\Controller;
 use frontend\models\search\ArticleSearch;
@@ -12,7 +12,7 @@ use yii\web\NotFoundHttpException;
 /**
  * @author Eugene Terentev <eugene@terentev.net>
  */
-class ArticleCategoryController extends Controller
+class ArticleController extends Controller
 {
 	public $layout = '//main';
 	
@@ -21,12 +21,12 @@ class ArticleCategoryController extends Controller
      */
     public function actionIndex()
     {
-        /*$searchModel = new ArticleSearch();
+        $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort = [
             'defaultOrder' => ['created_at' => SORT_DESC]
         ];
-        return $this->render('index', ['dataProvider'=>$dataProvider]);*/
+        return $this->render('index', ['dataProvider'=>$dataProvider]);
     }
 
     /**
@@ -36,12 +36,12 @@ class ArticleCategoryController extends Controller
      */
     public function actionView($slug)
     {
-        $model = ArticleCategory::find()->active()->andWhere(['slug'=>$slug])->one();
+        $model = Article::find()->published()->andWhere(['slug'=>$slug])->one();
         if (!$model) {
             throw new NotFoundHttpException;
         }
 
-        $viewFile = 'view';
+        $viewFile = $model->view ?: 'view';
         return $this->render($viewFile, ['model'=>$model]);
     }
 

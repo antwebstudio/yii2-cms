@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\cms\controllers;
+namespace ant\cms\controllers;
 
 class FormController extends \yii\web\Controller
 {

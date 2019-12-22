@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\cms\controllers;
+namespace ant\cms\backend\controllers;
 
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;

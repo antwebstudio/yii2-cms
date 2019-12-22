@@ -1,16 +1,12 @@
 <?php
 
-namespace backend\modules\cms;
+namespace ant\cms\backend;
 
 /**
  * cms module definition class
  */
 class Module extends \yii\base\Module
 {
-    /**
-     * @inheritdoc
-     */
-    public $controllerNamespace = 'backend\modules\cms\controllers';
 
     /**
      * @inheritdoc

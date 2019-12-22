@@ -5,9 +5,6 @@ namespace ant\cms\migrations\rbac;
 use yii\db\Schema;
 use ant\rbac\Migration;
 use ant\rbac\Role;
-use frontend\modules\cms\controllers\FormController;
-use frontend\modules\cms\controllers\ArticleController;
-use backend\modules\cms\controllers\DefaultController;
 
 class M170729040416_cms_permission extends \ant\rbac\Migration
 {
@@ -16,21 +13,31 @@ class M170729040416_cms_permission extends \ant\rbac\Migration
 	public function init()
     {
 		$this->permissions = [
-			ArticleController::className() => [
+			\ant\cms\controllers\ArticleController::className() => [
 				'view' => ['View CMS content', [Role::ROLE_GUEST]],
 			],
-			FormController::className() => [
+			\ant\cms\controllers\FormController::className() => [
 				'register' => ['Contact Register Form', [Role::ROLE_GUEST]],
 			],
 			// Backend
-			DefaultController::className() => [
+			\ant\cms\backend\controllers\DefaultController::className() => [
 				'index' => ['CMS', [Role::ROLE_ADMIN]],
 			],
-			\backend\modules\cms\controllers\FormController::className() => [
+			\ant\cms\backend\controllers\CollectionController::className() => [
+				'index' => ['CMS', [Role::ROLE_ADMIN]],
+				'create' => ['CMS', [Role::ROLE_ADMIN]],
+				'update' => ['CMS', [Role::ROLE_ADMIN]],
+			],
+			\ant\cms\backend\controllers\ItemController::className() => [
+				'index' => ['CMS', [Role::ROLE_ADMIN]],
+				'create' => ['CMS', [Role::ROLE_ADMIN]],
+				'update' => ['CMS', [Role::ROLE_ADMIN]],
+			],
+			\ant\cms\backend\controllers\FormController::className() => [
 				'index' => ['View Contact Registered', [Role::ROLE_ADMIN]],
 				'delete' => ['Delete Contact Registered', [Role::ROLE_ADMIN]],
 			],
-			\backend\modules\cms\controllers\ArticleController::className() => [
+			\ant\cms\backend\controllers\ArticleController::className() => [
 				'index' => ['View Articles', [Role::ROLE_ADMIN]],
 				'create' => ['Create Articles', [Role::ROLE_ADMIN]],
 				'update' => ['Update Articles', [Role::ROLE_ADMIN]],
@@ -38,7 +45,7 @@ class M170729040416_cms_permission extends \ant\rbac\Migration
 				'upload' => ['Upload Articles Image', [Role::ROLE_ADMIN]],
 				'upload-delete' => ['Delete Uploaded Articles Image', [Role::ROLE_ADMIN]],
 			],
-			\backend\modules\cms\controllers\ArticleCategoryController::className() => [
+			\ant\cms\backend\controllers\ArticleCategoryController::className() => [
 				'index' => ['View Article Categories', [Role::ROLE_ADMIN]],
 				'create' => ['Create Article Categories', [Role::ROLE_ADMIN]],
 				'update' => ['Update Article Categories', [Role::ROLE_ADMIN]],

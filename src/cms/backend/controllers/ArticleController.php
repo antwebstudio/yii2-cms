@@ -1,19 +1,19 @@
 <?php
 
-namespace backend\modules\cms\controllers;
+namespace ant\cms\backend\controllers;
 
 use Yii;
-use ant\models\ArticleCategory;
-use ant\models\search\ArticleCategorySearch;
-use yii\helpers\ArrayHelper;
+use ant\models\Article;
+use ant\models\search\ArticleSearch;
+use \ant\models\ArticleCategory;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ArticleCategoryController implements the CRUD actions for ArticleCategory model.
+ * ArticleController implements the CRUD actions for Article model.
  */
-class ArticleCategoryController extends Controller
+class ArticleController extends Controller
 {
     public function behaviors()
     {
@@ -21,22 +21,15 @@ class ArticleCategoryController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+                    'delete' => ['post']
+                ]
+            ]
         ];
     }
 	
 	public function actions()
     {
         return [
-			'galleryApi' => [
-			   'class' => \sashsvamir\galleryManager\GalleryManagerAction::className(),
-			   // mappings between type names and model classes (should be the same as in behaviour)
-			   'types' => [
-				   'article-category' => ArticleCategory::className()
-			   ]
-		   ],
             'upload' => [
                 'class' => 'trntv\filekit\actions\UploadAction',
                 'deleteRoute' => 'upload-delete'
@@ -55,56 +48,49 @@ class ArticleCategoryController extends Controller
     }
 
     /**
-     * Lists all ArticleCategory models.
+     * Lists all Article models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ArticleCategorySearch();
+        $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->sort = [
+            'defaultOrder'=>['published_at'=>SORT_DESC]
+        ];
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider
         ]);
     }
 
     /**
-     * Displays a single ArticleCategory model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new ArticleCategory model.
+     * Creates a new Article model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ArticleCategory();
-
-        $categories = ArticleCategory::find()->noParents()->all();
-        $categories = ArrayHelper::map($categories, 'id', 'title');
+        $model = new Article();
+		
+		foreach (Yii::$app->request->post('ArticleLang', []) as $language => $data) {
+            foreach ($data as $attribute => $translation) {
+                $model->translate($language)->$attribute = $translation;
+            }
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'categories' => $categories,
+                'categories' => ArticleCategory::find()->active()->all(),
             ]);
         }
     }
 
     /**
-     * Updates an existing ArticleCategory model.
+     * Updates an existing Article model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -112,23 +98,25 @@ class ArticleCategoryController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        $categories = ArticleCategory::find()->noParents()->andWhere(['not', ['id' => $id]])->all();
-        $categories = ArrayHelper::map($categories, 'id', 'title');
-
+		
+		foreach (Yii::$app->request->post('ArticleLang', []) as $language => $data) {
+            foreach ($data as $attribute => $translation) {
+                $model->translate($language)->$attribute = $translation;
+            }
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'categories' => $categories,
+                'categories' => ArticleCategory::find()->active()->all(),
             ]);
         }
     }
 
     /**
-     * Deletes an existing ArticleCategory model.
+     * Deletes an existing Article model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -141,15 +129,15 @@ class ArticleCategoryController extends Controller
     }
 
     /**
-     * Finds the ArticleCategory model based on its primary key value.
+     * Finds the Article model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ArticleCategory the loaded model
+     * @return Article the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ArticleCategory::findOne($id)) !== null) {
+        if (($model = Article::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
