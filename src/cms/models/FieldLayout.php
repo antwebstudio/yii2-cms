@@ -66,12 +66,17 @@ class FieldLayout extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Field::className(), ['id' => 'field_id'])->viaTable(FieldLayoutField::tableName(), ['layout_id' => 'id']);
     }
+	
+	public function getTabs() {
+        return $this->hasMany(FieldLayoutTab::className(), ['layout_id' => 'id']);
+	}
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getCmsFieldLayoutTabs()
     {
+		if (YII_DEBUG) throw new \Exception('DEPRECATED'); // 2019-12-27
         return $this->hasMany(FieldLayoutTab::className(), ['layout_id' => 'id']);
     }
 }

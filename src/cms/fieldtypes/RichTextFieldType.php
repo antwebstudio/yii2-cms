@@ -15,9 +15,9 @@ class RichTextFieldType extends \ant\cms\components\FieldType {
 		if ($language == 'en-us') $language = null;
 		
 		return $form->field($model, $this->field->handle)->widget(
-			\yii\imperavi\Widget::className(),
+			\ant\widgets\TinyMce::className(),
 			[
-				'plugins' => ['fullscreen', 'fontcolor', 'video'],
+				//'plugins' => ['fullscreen', 'fontcolor', 'video'],
 				'options' => [
 					'lang' => $language,
 					'minHeight' => 400,

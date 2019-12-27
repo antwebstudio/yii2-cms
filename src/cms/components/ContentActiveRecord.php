@@ -19,7 +19,7 @@ abstract class ContentActiveRecord extends \yii\db\ActiveRecord {
 		try {
 			if (parent::__isset($name)) return true;
 			
-			if ($this->hasCustomField($name)) {
+			if ($name != 'entryType' && $this->hasCustomField($name)) {
 				return true;
 			}
 		}  catch (\Exception $e) {
@@ -50,7 +50,7 @@ abstract class ContentActiveRecord extends \yii\db\ActiveRecord {
 			return parent::__set($name, $value);
 		} catch (\Exception $e) {
 			// Is $name a field handle?
-			if ($this->hasCustomField($name)) {
+			if ($name != 'entryType' && $this->hasCustomField($name)) {
 				return $this->setFieldValue($name, $value);
 			}
 

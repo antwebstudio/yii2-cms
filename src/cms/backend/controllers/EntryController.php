@@ -82,8 +82,8 @@ class EntryController extends Controller
 		$entryType = EntryType::findOne(['handle' => $type]);
 		$className = $entryType->content_type;
 		
-		$model = new $className();
-		$model->setEntryType($entryType);
+		$model = new $className(['entryType' => $entryType]);
+		//$model->setEntryType($entryType);
 		
 		if ($model->load(\Yii::$app->request->post())) {
 			if ($model->save()) {

@@ -83,7 +83,9 @@ class CmsFieldsBehavior extends \yii\base\Behavior {
 	public function setEntryType($handleOrId) {
 		if (isset($this->_entryType)) throw new \Exception('Entry type is already set. ');
 		
-		$this->_entryType = $handleOrId;
+		$this->_entryType = is_object($handleOrId) ? $handleOrId : EntryType::findOne($handleOrId);
+		
+		$this->_entryType->attachEntryTypeBehaviors($this->owner);
 		
 		/*if ($this->_entryType instanceof EntryType) {
 			$this->_entryType->setModel($this->owner);

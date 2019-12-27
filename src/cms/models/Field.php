@@ -46,6 +46,33 @@ class Field extends \yii\db\ActiveRecord
         return '{{%cms_field}}';
     }
 	
+	public static function createForEntryType($entryType, $handle, $fieldTypeClass, $fieldOptions = []) {
+		$entryType = is_object($entryType) ? $entryType : EntryType::findOne($entryType);
+		
+		if (is_array($handle)) {
+			$handle = key($handle);
+			$label = current($handle);
+		} else {
+			$label = \ant\helpers\StringHelper::generateTitle($handle);
+		}
+		
+		$field = new static;
+		$field->attributes = [
+			'name' => $label,
+			'handle' => $handle,
+			'type' => $fieldTypeClass,
+		];
+		if (!$field->save()) throw new \Exception(print_r($field->errors, 1));
+		
+		// Add field to entry type
+		$layoutField = new FieldLayoutField();
+		$layoutField->layout_id = $entryType->field_layout_id;
+		$layoutField->tab_id = $entryType->fieldLayout->tabs[0]->id;
+		$layoutField->field_id = $field->id;
+		
+		if (!$layoutField->save()) throw new \Exception(print_r($layoutField->errors, 1));
+	}
+	
 	public function events() {
 		return [
 			'beforeContentValidate' => [$this, 'eventHandler'],
@@ -115,6 +142,10 @@ class Field extends \yii\db\ActiveRecord
 	public function eventHandler($event) {
 		$field = $event->sender;
 		$field->fieldType->trigger($event->name, $event);
+	}
+	
+	public function attachFieldBehaviors($entry) {
+		$this->fieldType->attachFieldTypeBehaviors($entry);
 	}
 	
 	public function getFieldType() {

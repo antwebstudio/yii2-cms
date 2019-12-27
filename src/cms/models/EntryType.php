@@ -43,6 +43,18 @@ class EntryType extends \yii\db\ActiveRecord
     {
         return '{{%cms_entry_type}}';
     }
+	
+	public static function ensureExist($handle) {
+		$entryType = EntryType::findOne(['handle' => $handle]);
+		if (!isset($entryType)) {
+			$entryType = new EntryType;
+			$entryType->attributes = [
+				'handle' => $handle,
+			];
+			if (!$entryType->save()) throw new \Exception(print_r($entryType->errors, 1));
+		}
+		return $entryType;
+	}
 
     /**
      * @inheritdoc
@@ -60,6 +72,16 @@ class EntryType extends \yii\db\ActiveRecord
             [['app_id', 'handle', 'section_id'], 'unique', 'targetAttribute' => ['app_id', 'handle', 'section_id'], 'message' => 'The combination of App ID, Section ID and Handle has already been taken.'],
         ];
     }
+	
+	protected function createDefaultNameFromHandle($handle) {
+		return \ant\helpers\StringHelper::generateTitle($handle);
+	}
+	
+	public function beforeSave($insert) {
+		$this->content_type = \ant\cms\models\Entry::class;
+		$this->name = $this->createDefaultNameFromHandle($this->handle);
+		return parent::beforeSave($insert);
+	}
 
     /**
      * @inheritdoc

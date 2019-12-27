@@ -13,6 +13,12 @@ class EntryTypeBehavior extends \yii\base\Behavior {
 	protected $_fieldIds; // Should be null be default
 	protected $_fields;
 	
+	public function attachEntryTypeBehaviors($entry) {
+		foreach ($this->getFields() as $field) {
+			$field->attachFieldBehaviors($entry);
+		}
+	}
+	
 	public function setModel($model) {
 		// Should not setModel to entryType, as multiple instance of entry may use the same instance of entry type
 		// This method is remained here as a reminder

@@ -23,7 +23,12 @@ class M170729040416_cms_permission extends \ant\rbac\Migration
 			\ant\cms\backend\controllers\DefaultController::className() => [
 				'index' => ['CMS', [Role::ROLE_ADMIN]],
 			],
-			\ant\cms\backend\controllers\CollectionController::className() => [
+			\ant\cms\backend\controllers\EntryController::className() => [
+				'index' => ['CMS', [Role::ROLE_ADMIN]],
+				'create' => ['CMS', [Role::ROLE_ADMIN]],
+				'update' => ['CMS', [Role::ROLE_ADMIN]],
+			],
+			/*\ant\cms\backend\controllers\CollectionController::className() => [
 				'index' => ['CMS', [Role::ROLE_ADMIN]],
 				'create' => ['CMS', [Role::ROLE_ADMIN]],
 				'update' => ['CMS', [Role::ROLE_ADMIN]],
@@ -32,7 +37,7 @@ class M170729040416_cms_permission extends \ant\rbac\Migration
 				'index' => ['CMS', [Role::ROLE_ADMIN]],
 				'create' => ['CMS', [Role::ROLE_ADMIN]],
 				'update' => ['CMS', [Role::ROLE_ADMIN]],
-			],
+			],*/
 			\ant\cms\backend\controllers\FormController::className() => [
 				'index' => ['View Contact Registered', [Role::ROLE_ADMIN]],
 				'delete' => ['Delete Contact Registered', [Role::ROLE_ADMIN]],

@@ -63,6 +63,14 @@ abstract class FieldType extends \yii\base\Component {
 		}*/
 	}
 	
+	public function attachFieldTypeBehaviors($entry) {
+		$entry->attachBehaviors($this->entryBehaviors());
+	}
+	
+	public function entryBehaviors() {
+		return [];
+	}
+	
 	public function prepareValue($value) {
 		//$value = $model->{$this->field->handle};
 		return $value;
