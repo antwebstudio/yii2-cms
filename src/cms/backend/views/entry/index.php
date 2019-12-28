@@ -16,12 +16,7 @@ use yii\helpers\Html;
 			],
 			[
 				'class' => ActionColumn::className(),
-				// you may configure additional properties here
-				/*'buttons' => [
-					'update' => function ($url, $model, $key) {
-						return Html::a('Update', $url);
-					},
-				],*/
+				'template' => '{update} {delete}',
 			],
 		],
 	]) ?>

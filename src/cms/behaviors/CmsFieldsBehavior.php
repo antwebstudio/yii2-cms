@@ -36,6 +36,7 @@ class CmsFieldsBehavior extends \yii\base\Behavior {
 	}
 	
 	public function afterFind() {
+		$this->owner->entryType->attachEntryTypeBehaviors($this->owner);
 		$this->_data = $this->content->data;
 		
 		$this->triggerFieldsEvent('afterContentFind');

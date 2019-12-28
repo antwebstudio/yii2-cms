@@ -4,6 +4,20 @@ namespace ant\cms\components;
 use ant\cms\models\EntryType;
 
 class ContentActiveQuery extends \yii\db\ActiveQuery {
+	public function behaviors() {
+		return [
+			[
+				'class' => 'ant\category\behaviors\CategorizableQueryBehavior',
+			],
+			[
+				'class' => 'ant\tag\behaviors\TaggableQueryBehavior',
+			],
+			/*[
+				'class' => 'ant\attribute\behaviors\DynamicAttributeQueryBehavior',
+			],*/
+		];
+	}
+	
 	public function type($type) {
 		$appId = env('APP_ID', isset(\Yii::$app->params['appId']) ? \Yii::$app->params['appId'] : null);
 		if (!$appId) throw new \Exception('Either env("APP_ID") or Yii::$app->params["appId"] need to be set. ');

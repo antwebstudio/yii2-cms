@@ -27,6 +27,9 @@ class M170729040416_cms_permission extends \ant\rbac\Migration
 				'index' => ['CMS', [Role::ROLE_ADMIN]],
 				'create' => ['CMS', [Role::ROLE_ADMIN]],
 				'update' => ['CMS', [Role::ROLE_ADMIN]],
+				'image-upload' => ['CMS', [Role::ROLE_ADMIN]],
+				'file-upload' => ['CMS', [Role::ROLE_ADMIN]],
+				'file-delete' => ['CMS', [Role::ROLE_ADMIN]],
 			],
 			/*\ant\cms\backend\controllers\CollectionController::className() => [
 				'index' => ['CMS', [Role::ROLE_ADMIN]],

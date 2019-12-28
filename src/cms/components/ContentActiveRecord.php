@@ -12,6 +12,10 @@ abstract class ContentActiveRecord extends \yii\db\ActiveRecord {
 			[
 				'class' => \ant\cms\behaviors\CmsFieldsBehavior::className(),
 			],
+			[
+				'class' => \ant\category\behaviors\CategorizableBehavior::className(),
+				'attribute' => 'test',
+			],
 		];
 	}
 	

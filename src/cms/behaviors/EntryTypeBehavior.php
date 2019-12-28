@@ -12,10 +12,15 @@ use ant\cms\models\FieldLayoutField;
 class EntryTypeBehavior extends \yii\base\Behavior {
 	protected $_fieldIds; // Should be null be default
 	protected $_fields;
+	protected $_attachedEntryTypeBehaviors = false;
 	
 	public function attachEntryTypeBehaviors($entry) {
-		foreach ($this->getFields() as $field) {
-			$field->attachFieldBehaviors($entry);
+		if (!$this->_attachedEntryTypeBehaviors) {
+			$this->_attachedEntryTypeBehaviors = true;
+			
+			foreach ($this->getFields() as $field) {
+				$field->attachFieldBehaviors($entry);
+			}
 		}
 	}
 	
