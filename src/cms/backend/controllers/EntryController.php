@@ -30,9 +30,14 @@ class EntryController extends Controller
                 'on afterSave' => function ($event) {
 					ini_set('memory_limit','256M');
                     /* @var $file \League\Flysystem\File */
+					$sizeConfig = ['fit', 'width' => 800];
+					
                     $file = $event->file;
-                    $img = ImageManagerStatic::make($file->read())->resize(800);
-                    $file->put($img->encode());
+                    $img = ImageManagerStatic::make($file->read());
+					
+					$method = array_shift($sizeConfig);
+					call_user_func_array([$img, $method], $sizeConfig);
+					$file->put($img->encode());
                 }
             ],
             'file-delete' => [
