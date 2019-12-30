@@ -3,7 +3,7 @@
 namespace ant\comment\migrations\db;
 
 use yii\db\Expression;
-use ant\components\Migration;
+use ant\db\Migration;
 
 class M180124080343_create_comment extends Migration
 {
@@ -13,10 +13,11 @@ class M180124080343_create_comment extends Migration
     {
 		$this->createTable($this->tableName, [
 			'id' => $this->primaryKey(),
-			'group_id' => $this->integer()->notNull(),
+			'model_id' => $this->integer()->unsigned()->null()->defaultValue(null),
+			'model_class_id' => $this->integer()->unsigned()->null()->defaultValue(null),
 			'title' => $this->string(),
 			'body' => $this->text()->notNull(),
-			'is_published' => $this->smallInteger(1)->notNull(),
+			'status' => $this->smallInteger(1)->null()->defaultValue(0),
 			'created_at' => $this->timestamp()->null()->defaultValue(null),
 			'created_by' => $this->integer()->unsigned()->null()->defaultValue(null),
 			'updated_at' => $this->timestamp()->null()->defaultValue(null),
@@ -24,11 +25,10 @@ class M180124080343_create_comment extends Migration
 		], $this->getTableOptions());
 		
 		$this->createIndex('comment_idx', $this->tableName, [
-			new Expression('`group_id` ASC'),
+			new Expression('`model_class_id` ASC'),
+			new Expression('`model_id` ASC'),
 			new Expression('`created_at` DESC'),
 		]);
-		
-		$this->addForeignKeyTo('{{%comment_group}}', 'group_id', self::FK_TYPE_CASCADE, self::FK_TYPE_CASCADE);
 		
 		$this->addForeignKeyTo('{{%user}}', 'created_by', self::FK_TYPE_SET_NULL, self::FK_TYPE_CASCADE);
 		$this->addForeignKeyTo('{{%user}}', 'updated_by', self::FK_TYPE_SET_NULL, self::FK_TYPE_CASCADE);
@@ -36,7 +36,7 @@ class M180124080343_create_comment extends Migration
 
     public function safeDown()
     {
-		//$this->dropTable($this->tableName);
+		$this->dropTable($this->tableName);
     }
 
     /*

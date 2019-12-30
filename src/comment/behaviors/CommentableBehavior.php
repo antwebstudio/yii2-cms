@@ -3,13 +3,14 @@ namespace ant\comment\behaviors;
 
 use Yii;
 use yii\db\ActiveRecord;
+use ant\models\ModelClass;
 use ant\comment\models\Comment;
 use ant\comment\models\CommentGroup;
 
 class CommentableBehavior extends \yii\base\Behavior
 {
 	
-	public $attribute;
+	public $attribute = 'comment';
 	
 	public function events() {
 		return [
@@ -58,11 +59,8 @@ class CommentableBehavior extends \yii\base\Behavior
 
 	public function getComments()
 	{
-		$owner = $this->owner;
-		return $this->owner->hasMany(Comment::className(), ['group_id' => 'id'])->viaTable(CommentGroup::tableName(), ['model_id' => 'id'], function($q) use($owner) {
-			return $q->onCondition(['model_class' => $owner::className()]);
-		});
-		//return Comment::find()->belongTo($this->owner);
+		return $this->owner->hasMany(Comment::className(), ['model_id' => 'id'])
+			->onCondition(['model_class_id' => ModelClass::getClassId($this->owner)]);
     }
 
 	/**

@@ -1,12 +1,18 @@
 <?php
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+
+$url = $model->isNewRecord ? ['/comment/comment/create'] : ['/comment/comment/update', 'id' => $model->id];
 ?>
 
-<?php $form = ActiveForm::begin() ?>
+<?php $form = ActiveForm::begin(['action' => $url]) ?>
 	<?= $form->errorSummary($model) ?>
 	
-	<?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
+	<?php if ($model->isNewRecord): ?>
+		<?= $form->field($model, 'model_class_id')->hiddenInput()->label(false) ?>
+		
+		<?= $form->field($model, 'model_id')->hiddenInput()->label(false) ?>
+	<?php endif ?>
 	
 	<?= $form->field($model, 'title')->textInput() ?>
 	

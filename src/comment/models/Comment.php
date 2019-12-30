@@ -9,10 +9,8 @@ use ant\user\models\User;
  * This is the model class for table "comment".
  *
  * @property integer $id
- * @property integer $group_id
  * @property string $title
  * @property string $body
- * @property integer $is_published
  * @property string $created_at
  * @property integer $created_by
  * @property string $updated_at
@@ -48,9 +46,9 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['group_id', 'body', 'is_published'], 'required'],
+            [['model_class_id', 'model_id', 'body'], 'required'],
             [['body'], 'string'],
-            [['id', 'is_published', 'group_id', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'status', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
@@ -69,17 +67,12 @@ class Comment extends \yii\db\ActiveRecord
             'foreign_pk' => 'Foreign Pk',
             'title' => 'Title',
             'body' => 'Comment',
-            'is_published' => 'Is Published',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
     }
-	
-	public function getCommentGroup() {
-		return $this->hasOne(CommentGroup::className(), ['id' => 'group_id']);
-	}
 
     /**
      * @return \yii\db\ActiveQuery

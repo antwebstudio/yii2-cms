@@ -14,8 +14,10 @@ class M180125065628_comment_permission extends Migration
 	
 	public function init() {
 		$this->permissions = [
-			\frontend\modules\comment\controllers\CommentController::className() => [
+			\ant\comment\controllers\CommentController::className() => [
 				'delete' => ['Delete comment', [Role::ROLE_USER]],
+				'create' => ['Create comment', [Role::ROLE_USER]],
+				'update' => ['Edit comment', [Role::ROLE_USER]],
 			],
 			\ant\comment\models\Comment::className() => [
 				'update' => ['Update own comment', [Role::ROLE_USER], 'ruleName' => IsOwnModelRule::className()],

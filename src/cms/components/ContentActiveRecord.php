@@ -10,7 +10,16 @@ abstract class ContentActiveRecord extends \yii\db\ActiveRecord {
 	public function behaviors() {
 		return [
 			[
+				'class' => \ant\behaviors\AttachBehaviorBehavior::class,
+				'config' => '@common/config/behaviors.php',
+			],
+			[
 				'class' => \ant\cms\behaviors\CmsFieldsBehavior::className(),
+			],
+			[
+				'class' => \ant\behaviors\TimestampBehavior::className(),
+				'createdAtAttribute' => 'created_date',
+				'updatedAtAttribute' => 'last_updated',
 			],
 			[
 				'class' => \ant\category\behaviors\CategorizableBehavior::className(),
@@ -76,6 +85,10 @@ abstract class ContentActiveRecord extends \yii\db\ActiveRecord {
 	
 	public static function find() {
 		return new ContentActiveQuery(get_called_class());
+	}
+	
+	public function getCreatedAt() {
+		return $this->created_date;
 	}
 	
 	public function getAttribute($name) {

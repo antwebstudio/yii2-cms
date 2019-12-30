@@ -7,10 +7,6 @@ namespace ant\comment;
  */
 class Module extends \yii\base\Module
 {
-    /**
-     * @inheritdoc
-     */
-    public $controllerNamespace = 'ant\comment\controllers';
 
     /**
      * @inheritdoc

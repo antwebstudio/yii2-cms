@@ -6,6 +6,8 @@ use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use ant\helpers\TemplateHelper;
+use ant\models\ModelClass;
+use ant\comment\models\Comment;
 
 class Comments extends \yii\base\Widget
 {
@@ -14,7 +16,9 @@ class Comments extends \yii\base\Widget
 
 	public $model;
 	
-	public $layout = '{header} {title} {body} {form} {meta} <hr/>';
+	public $layout = '{comments} {form}';
+	
+	public $commentLayout = '{header} {title} {body} {form} {meta} <hr/>';
 
 	/**
 	 * @var array the options for the container tag of the widget
@@ -81,6 +85,18 @@ class Comments extends \yii\base\Widget
 	public function run()
 	{
 		echo Html::beginTag('div', $this->options);
+		
+		echo TemplateHelper::renderTemplate($this->layout, [
+			'comments' => [$this, 'renderComments'],
+			'form' => [$this, 'renderForm'],
+		], []);
+
+		echo Html::endTag('div');
+	}
+	
+	public function renderComments() {
+		
+		echo Html::beginTag('div', []);
 
 		if (count($this->comments) === 0) {
 			echo Html::tag('span', Yii::t('app', 'No comments yet!'), ['class' => 'no-comments']);
@@ -97,6 +113,13 @@ class Comments extends \yii\base\Widget
 		echo Html::endTag('div');
 	}
 	
+	public function renderForm() {
+		$comment = new Comment;
+		$comment->model_class_id = ModelClass::getClassId($this->model);
+		$comment->model_id = $this->model->id;
+		return $this->renderCommentForm($comment);
+	}
+	
 	protected function renderAttribute($comment, $attribute) {
 		if (isset($this->attributesSettings[$attribute])) {
 			$attribute = ArrayHelper::merge($this->attributesSettings[$attribute], [
@@ -108,7 +131,7 @@ class Comments extends \yii\base\Widget
 		$author = $this->authorCallback === null ? $comment->created_by : call_user_func($this->authorCallback, $comment->created_by);
 	}
 	
-	public function renderTitle($comment) {
+	public function renderCommentTitle($comment) {
 		if (!empty($comment->title)) {
 			$titleOptions = ['data-comment-title' => '', 'class'=>'comment-title'];
 			if (false) Html::addCssClass($titleOptions, 'media-heading');
@@ -116,11 +139,11 @@ class Comments extends \yii\base\Widget
 		}
 	}
 	
-	public function renderContent($comment) {
+	public function renderCommentContent($comment) {
 		return Html::tag('div', $this->renderAttribute($comment, 'body'), ['data-comment-content' => '', 'class'=>'comment-content']);
 	}
 	
-	public function renderMeta($comment) {
+	public function renderCommentMeta($comment) {
 		$html = Html::beginTag('dl', ['class'=>'comment-meta']);
 		
 		$html .= Html::tag('dt', Yii::t('app', 'Created'));
@@ -141,7 +164,7 @@ class Comments extends \yii\base\Widget
 		return $html;
 	}
 	
-	public function renderHeader($comment) {
+	public function renderCommentHeader($comment) {
 		return Html::tag('div', TemplateHelper::renderTemplate('{update} {delete}', [
 			'update' => function($model) {
 				if ($model->created_by == Yii::$app->user->id) {
@@ -160,7 +183,7 @@ class Comments extends \yii\base\Widget
 		], [$comment]), ['class' => 'pull-right']);
 	}
 	
-	public function renderForm($comment) {
+	public function renderCommentForm($comment) {
 		$this->getView()->registerJs('
 			(function($) {
 				$("[data-comment-id]").each(function(event) {
@@ -210,12 +233,12 @@ class Comments extends \yii\base\Widget
 		// body
 		$html .= Html::beginTag('div', $wrapperOptions);
 
-		$html .= TemplateHelper::renderTemplate($this->layout, [
-			'title' => [$this, 'renderTitle'],
-			'body' => [$this, 'renderContent'],
-			'meta' => [$this, 'renderMeta'],
-			'form' => [$this, 'renderForm'],
-			'header' => [$this, 'renderHeader'],
+		$html .= TemplateHelper::renderTemplate($this->commentLayout, [
+			'title' => [$this, 'renderCommentTitle'],
+			'body' => [$this, 'renderCommentContent'],
+			'meta' => [$this, 'renderCommentMeta'],
+			'form' => [$this, 'renderCommentForm'],
+			'header' => [$this, 'renderCommentHeader'],
 		], [$comment]);
 
 		$html .= Html::endTag('div');
