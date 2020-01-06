@@ -5,7 +5,7 @@ use yii\helpers\Html;
 $url = $model->isNewRecord ? ['/comment/comment/create'] : ['/comment/comment/update', 'id' => $model->id];
 ?>
 
-<?php $form = ActiveForm::begin(['action' => $url]) ?>
+<?php $form = ActiveForm::begin($formOptions) ?>
 	<?= $form->errorSummary($model) ?>
 	
 	<?php if ($model->isNewRecord): ?>
@@ -19,4 +19,10 @@ $url = $model->isNewRecord ? ['/comment/comment/create'] : ['/comment/comment/up
 	<?= $form->field($model, 'body')->textArea() ?>
 	
 	<?= Html::submitButton($model->isNewRecord ? 'Comment' : 'Save', ['class' => 'btn btn-primary']) ?>
+	
+	<?php if (!$model->isNewRecord): ?>
+		&nbsp; &nbsp;
+		<a class="btn-link" href="javascript:;" data-comment-cancel>Cancel</a>
+	<?php endif ?>
+	
 <?php ActiveForm::end() ?>

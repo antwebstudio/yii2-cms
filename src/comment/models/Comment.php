@@ -89,6 +89,10 @@ class Comment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
+	
+	public function getCreatedAt() {
+		return $this->created_at;
+	}
 
 	/**
 	 * @inheritdoc

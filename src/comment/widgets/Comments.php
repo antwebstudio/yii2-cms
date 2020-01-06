@@ -19,16 +19,24 @@ class Comments extends \yii\base\Widget
 	public $layout = '{comments} {form}';
 	
 	public $commentLayout = '{header} {title} {body} {form} {meta} <hr/>';
+	
+	public $commentView;
 
 	/**
 	 * @var array the options for the container tag of the widget
 	 */
 	public $options = [];
+	
+	public $formOptions = [];
 
 	/**
 	 * @var array|\Closure the options for the comment-containers or a closure retuning an array
 	 * of options (format: function($model))
 	 */
+	public $editLinkOptions = ['class' => 'btn btn-sm'];
+	
+	public $deleteLinkOptions = ['class' => 'btn btn-sm'];
+	
 	public $commentOptions = ['class' => 'media'];
 
 	/**
@@ -64,7 +72,7 @@ class Comments extends \yii\base\Widget
 		//ComponentConfig::hasBehavior($this->model, CommentsBehavior::className(), true);
 
 		//load the comments
-		$this->loadComments();
+		//$this->loadComments();
 
 		//prepare options
 		Html::addCssClass($this->options, 'widget-comments');
@@ -74,10 +82,10 @@ class Comments extends \yii\base\Widget
 	/**
 	 * Loads the comments
 	 */
-	protected function loadComments()
+	/*protected function loadComments()
 	{
 		$this->comments = $this->model->getComments()->all();
-	}
+	}*/
 
 	/**
 	 * @inheritdoc
@@ -95,22 +103,30 @@ class Comments extends \yii\base\Widget
 	}
 	
 	public function renderComments() {
-		
-		echo Html::beginTag('div', []);
-
-		if (count($this->comments) === 0) {
-			echo Html::tag('span', Yii::t('app', 'No comments yet!'), ['class' => 'no-comments']);
+		if (isset($this->commentView)) {
+			return \yii\widgets\ListView::widget([
+				'layout' => '{items} {pager}',
+				'viewParams' => ['widget' => $this],
+				'itemView' => $this->commentView,
+				'dataProvider' => new \yii\data\ActiveDataProvider(['query' => $this->model->getComments()]),
+			]);
 		} else {
-			foreach ($this->comments as $comment) {
-				if ($this->view === null) {
-					echo $this->renderComment($comment);
-				} else {
-					echo $this->render($this->view, ['model' => $comment, 'options' => $this->commentOptions]);
+			echo Html::beginTag('div', []);
+
+			if ($this->model->getComments()->count() === 0) {
+				echo Html::tag('span', Yii::t('app', 'No comments yet!'), ['class' => 'no-comments']);
+			} else {
+				foreach ($this->model->getComments()->all() as $comment) {
+					if ($this->view === null) {
+						echo $this->renderComment($comment);
+					} else {
+						echo $this->render($this->view, ['model' => $comment, 'options' => $this->commentOptions]);
+					}
 				}
 			}
-		}
 
-		echo Html::endTag('div');
+			echo Html::endTag('div');
+		}
 	}
 	
 	public function renderForm() {
@@ -168,19 +184,21 @@ class Comments extends \yii\base\Widget
 		return Html::tag('div', TemplateHelper::renderTemplate('{update} {delete}', [
 			'update' => function($model) {
 				if ($model->created_by == Yii::$app->user->id) {
-					return Html::a('Edit', 'javascript:;', ['data-comment-edit' => '']);
+					$options = $this->editLinkOptions;
+					$options['data-comment-edit'] = '';
+					return Html::a('Edit', 'javascript:;', $options);
 				}
 			}, 
 			'delete' => function($model) {				
 				if ($model->created_by == Yii::$app->user->id) {
-					return Html::a('Delete', ['/comment/comment/delete', 'id' => $model->id], [
+					return Html::a('Delete', ['/comment/comment/delete', 'id' => $model->id], array_merge([
 						'data-method' => 'post', 
 						'data-comment-delete' => '',
 						'data-confirm' => 'Are you sure to delete this comment? ',
-					]);
+					], $this->deleteLinkOptions));
 				}
 			},
-		], [$comment]), ['class' => 'pull-right']);
+		], [$comment]), ['class' => 'pull-right', 'data-comment-buttons' => '']);
 	}
 	
 	public function renderCommentForm($comment) {
@@ -190,6 +208,7 @@ class Comments extends \yii\base\Widget
 					var $content = $(this).find("[data-comment-content]");
 					var $title = $(this).find("[data-comment-title]");
 					var $form = $(this).find("[data-comment-form]");
+					var $buttons = $(this).find("[data-comment-buttons]");
 					
 					$form.hide();
 					
@@ -198,18 +217,32 @@ class Comments extends \yii\base\Widget
 							$content.hide();
 							$title.hide();
 							$form.show();
+							$buttons.hide();
 						} else {
 							$content.show();
 							$title.show();
 							$form.hide();
+							$buttons.show();
 						}
 					});
+					
+					$(this).find("[data-comment-cancel]").click(function() {
+						$content.show();
+						$title.show();
+						$form.hide();
+						$buttons.show();
+					});
+						
 				});
 			})(jQuery);
 		');
 		
+		$formOptions = $this->formOptions;
+		$formOptions['action'] = $comment->isNewRecord ? ['/comment/comment/create'] : ['/comment/comment/update', 'id' => $comment->id];
+		
 		return Html::tag('div', $this->render('comment-form', [
 			'model' => $comment,
+			'formOptions' => $formOptions,
 		]), ['data-comment-form' => '']);
 	}
 

@@ -12,6 +12,9 @@ class ContentActiveQuery extends \yii\db\ActiveQuery {
 			[
 				'class' => 'ant\tag\behaviors\TaggableQueryBehavior',
 			],
+			[
+				'class' => 'ant\stat\behaviors\ViewableQueryBehavior',
+			],
 			/*[
 				'class' => 'ant\attribute\behaviors\DynamicAttributeQueryBehavior',
 			],*/
