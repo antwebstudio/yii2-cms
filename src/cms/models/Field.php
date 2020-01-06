@@ -148,6 +148,11 @@ class Field extends \yii\db\ActiveRecord
 		$this->fieldType->attachFieldTypeBehaviors($entry);
 	}
 	
+	public function getIsRequired() {
+		if (!isset($this->fieldLayoutFields)) throw new \Exception('Field with ID: '.$this->id.' do not have fieldLayoutFields. ');
+		return $this->fieldLayoutFields->required;
+	}
+	
 	public function getFieldType() {
 		if (!isset($this->_fieldType)) {
 			$className = $this->normalizeTypeClass($this->type);
@@ -185,9 +190,9 @@ class Field extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCmsFieldLayoutFields()
+    public function getFieldLayoutFields()
     {
-        return $this->hasMany(CmsFieldLayoutField::className(), ['field_id' => 'id']);
+        return $this->hasOne(FieldLayoutField::className(), ['field_id' => 'id']);
     }
 
     /**

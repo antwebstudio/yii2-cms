@@ -2,7 +2,7 @@
 
 namespace ant\cms\backend\controllers;
 
-use yii\web\Controller;
+use Yii;
 use yii\data\ActiveDataProvider;
 use trntv\filekit\actions\DeleteAction;
 use trntv\filekit\actions\UploadAction;
@@ -15,8 +15,20 @@ use ant\cms\components\Content;
 /**
  * Default controller for the `cms` module
  */
-class EntryController extends Controller
+class EntryController extends \yii\web\Controller
 {
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post']
+                ]
+            ]
+        ];
+    }
+	
     public function actions()
     {
         return [
@@ -34,6 +46,10 @@ class EntryController extends Controller
 					
                     $file = $event->file;
                     $img = ImageManagerStatic::make($file->read());
+					
+					if (isset($sizeConfig['width']) && !isset($sizeConfig['height'])) {
+						$sizeConfig['height'] = (int) ($img->height() / $img->width() * $sizeConfig['width']);
+					}
 					
 					$method = array_shift($sizeConfig);
 					call_user_func_array([$img, $method], $sizeConfig);
@@ -99,5 +115,18 @@ class EntryController extends Controller
         return $this->render('update', [
 			'model' => $model,
 		]);
+	}
+	
+	public function actionDelete($id) {
+		$model = Content::findByUid($id);
+		
+		if ($model->delete()) {
+			Yii::$app->session->setFlash('success', 'Sucessfully deleted. ');
+				return $this->redirect(['index', 'type' => $model->entryType->handle]);
+		} else {
+			Yii::$app->session->setFlash('error', 'Failed to delete. ');
+				return $this->redirect(['index', 'type' => $model->entryType->handle]);
+		}
+		
 	}
 }

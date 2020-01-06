@@ -44,7 +44,11 @@ abstract class FieldType extends \yii\base\Component {
 	}
 	
 	public function rules() {
-		return [[$this->field->handle], 'safe'];
+		$rules = [[$this->field->handle], 'safe'];
+		if ($this->field->isRequired) {
+			$rules = [[$this->field->handle], 'required'];;
+		}
+		return $rules;
 	}
 	
 	public function init() {
