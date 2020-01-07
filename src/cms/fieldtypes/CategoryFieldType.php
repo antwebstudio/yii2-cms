@@ -30,6 +30,7 @@ class CategoryFieldType extends \ant\cms\components\RelationalFieldType {
 			'prompt' => '',
 			'multiple' => true,
 		];
+		$categoryType = $this->field->handle == 'category' ? 'default' : $this->field->handle;
 		//$items = isset($field->setting['items']) ? array_combine($field->setting['items'], $field->setting['items']) : [];
 		
 		return $form->field($model, $this->field->handle.'_ids')->widget(
@@ -38,7 +39,7 @@ class CategoryFieldType extends \ant\cms\components\RelationalFieldType {
 				'maintainOrder' => true,
 				'pluginOptions' => ['allowClear' => true],
 				//'data' => ArrayHelper::map(Category::find()->type($this->category_type_id)->all(), 'content_uid', 'contentData.name'),
-				'data' => ArrayHelper::map(Category::find()->typeOf('default')->all(), 'id', 'title'),
+				'data' => ArrayHelper::map(Category::find()->typeOf($categoryType)->all(), 'id', 'title'),
 				'options' => $options,
             ]
         );

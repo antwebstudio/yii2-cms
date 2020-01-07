@@ -27,7 +27,6 @@ abstract class ContentActiveRecord extends \yii\db\ActiveRecord {
 			],
 			[
 				'class' => \ant\tag\behaviors\TaggableBehavior::class,
-				'relation' => 'test',
 				'attribute' => 'test',
 			],
 		];
@@ -79,11 +78,15 @@ abstract class ContentActiveRecord extends \yii\db\ActiveRecord {
 	
 	public function rules() {
 		$rules = [];
-		foreach ($this->entryType->getFields() as $field) {
-			$rule = $field->fieldType->rules();
-			if (isset($rule)) $rules[] = $rule;
+		$nameRule = 'safe';
+		
+		if (isset($this->entryType)) {
+			foreach ($this->entryType->getFields() as $field) {
+				$rule = $field->fieldType->rules();
+				if (isset($rule)) $rules[] = $rule;
+			}
+			$nameRule = $this->entryType->has_title_field ? 'required' : 'safe';
 		}
-		$nameRule = $this->entryType->has_title_field ? 'required' : 'safe';
 		
 		return ArrayHelper::merge($rules, [
 			[['name'], $nameRule],

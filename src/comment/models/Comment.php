@@ -4,6 +4,7 @@ namespace ant\comment\models;
 
 use Yii;
 use ant\user\models\User;
+use ant\models\ModelClass;
 
 /**
  * This is the model class for table "comment".
@@ -92,6 +93,11 @@ class Comment extends \yii\db\ActiveRecord
 	
 	public function getCreatedAt() {
 		return $this->created_at;
+	}
+	
+	public function getModel() {
+		$class = ModelClass::getClassName($this->model_class_id);
+		return $this->hasOne($class, ['id' => 'model_id']);
 	}
 
 	/**
