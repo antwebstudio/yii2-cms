@@ -23,6 +23,10 @@ class ContentActiveQuery extends \yii\db\ActiveQuery {
 		];
 	}
 	
+	public function latestFirst() {
+		return $this->orderBy('created_date DESC');
+	}
+	
 	public function andFilterWhereQueryString($queryString) {
 		if (isset($this->entryType)) {
 			$fields = $this->entryType->getFields();

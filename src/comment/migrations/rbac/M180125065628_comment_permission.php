@@ -23,6 +23,11 @@ class M180125065628_comment_permission extends Migration
 				'update' => ['Update own comment', [Role::ROLE_USER], 'ruleName' => IsOwnModelRule::className()],
 				'delete' => ['Delete own comment', [Role::ROLE_USER], 'ruleName' => IsOwnModelRule::className()],
 			],
+			// backend
+			\ant\comment\backend\controllers\CommentController::className() => [
+				'delete' => ['Delete comment', [Role::ROLE_ADMIN]],
+				'index' => ['Manage comment', [Role::ROLE_ADMIN]],
+			],
 		];
 		
 		parent::init();

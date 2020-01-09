@@ -6,7 +6,7 @@ $url = $model->isNewRecord ? ['/comment/comment/create'] : ['/comment/comment/up
 ?>
 
 <?php $form = ActiveForm::begin($formOptions) ?>
-	<?= $form->errorSummary($model) ?>
+	<?= $form->errorSummary($model, ['class' => 'alert alert-danger']) ?>
 	
 	<?php if ($model->isNewRecord): ?>
 		<?= $form->field($model, 'model_class_id')->hiddenInput()->label(false) ?>
@@ -14,7 +14,7 @@ $url = $model->isNewRecord ? ['/comment/comment/create'] : ['/comment/comment/up
 		<?= $form->field($model, 'model_id')->hiddenInput()->label(false) ?>
 	<?php endif ?>
 	
-	<?= $form->field($model, 'title')->textInput() ?>
+	<?= $form->field($model, 'author_name')->textInput() ?>
 	
 	<?= $form->field($model, 'body')->textArea() ?>
 	

@@ -5,6 +5,10 @@ use ant\models\ModelClass;
 
 class CommentQuery extends \yii\db\ActiveQuery
 {
+	
+	public function latestFirst() {
+		return $this->orderBy('created_at DESC');
+	}
 
 	public function belongTo(\yii\base\Model $model)
 	{

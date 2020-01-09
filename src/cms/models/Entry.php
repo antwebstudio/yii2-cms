@@ -67,7 +67,11 @@ class Entry extends \ant\cms\components\ContentActiveRecord
         return $this->hasOne(ContentData::className(), ['id' => 'content_uid']);
     }
 	
+	public function getRoute() {
+		return ['/cms/entry/view', 'uid' => $this->content_uid];
+	}
+	
 	public function getUrl() {
-		return \yii\helpers\Url::to(['/cms/entry/view', 'uid' => $this->content_uid]);
+		return \yii\helpers\Url::to($this->getRoute());
 	}
 }
