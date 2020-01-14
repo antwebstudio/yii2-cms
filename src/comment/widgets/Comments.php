@@ -130,7 +130,7 @@ class Comments extends \yii\base\Widget
 	}
 	
 	public function renderForm() {
-		$comment = new Comment;
+		$comment = Yii::$app->getModule('comment')->getFormModel('comment');
 		$comment->model_class_id = ModelClass::getClassId($this->model);
 		$comment->model_id = $this->model->id;
 		return $this->renderCommentForm($comment);
@@ -202,6 +202,8 @@ class Comments extends \yii\base\Widget
 	}
 	
 	public function renderCommentForm($comment) {
+		Yii::$app->getModule('comment')->configureModel($comment, 'comment');
+		
 		$this->getView()->registerJs('
 			(function($) {
 				$("[data-comment-id]").each(function(event) {

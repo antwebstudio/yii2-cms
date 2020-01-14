@@ -38,6 +38,9 @@ class Comment extends \yii\db\ActiveRecord
 			[
 				'class' => \yii\behaviors\BlameableBehavior::className(),
 			],
+			'configurable' => [
+				'class' => \ant\behaviors\ConfigurableModelBehavior::className(),
+			],
 		];
 	}
 
@@ -63,8 +66,8 @@ class Comment extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
-            'id' => 'ID',
+        return $this->getCombinedAttributeLabels([
+            /*'id' => 'ID',
             'model_class' => 'Model Class',
             'foreign_pk' => 'Foreign Pk',
             'title' => 'Title',
@@ -72,8 +75,8 @@ class Comment extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
-        ];
+            'updated_by' => 'Updated By',*/
+        ]);
     }
 
     /**

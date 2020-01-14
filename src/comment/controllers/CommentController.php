@@ -37,7 +37,7 @@ class CommentController extends \yii\web\Controller
     }
 	
 	public function actionCreate() {
-		$model = new Comment;
+		$model = $this->module->getFormModel('comment');
 		
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(Yii::$app->request->referrer);

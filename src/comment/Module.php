@@ -7,6 +7,18 @@ namespace ant\comment;
  */
 class Module extends \yii\base\Module
 {
+	public function behaviors() {
+		return [
+			'configurable' => [
+				'class' => 'ant\behaviors\ConfigurableModuleBehavior',
+				'formModels' => [
+					'comment' => [
+						'class' => 'ant\comment\models\Comment',
+					],
+				],
+			],
+		];
+	}
 
     /**
      * @inheritdoc
