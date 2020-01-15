@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use trntv\filekit\actions\DeleteAction;
 use trntv\filekit\actions\UploadAction;
 use Intervention\Image\ImageManagerStatic;
+use ant\helpers\File;
 use ant\cms\models\Entry;
 use ant\cms\models\Category;
 use ant\cms\models\EntryType;
@@ -45,15 +46,18 @@ class EntryController extends \yii\web\Controller
 					$sizeConfig = ['fit', 'width' => 800];
 					
                     $file = $event->file;
-                    $img = ImageManagerStatic::make($file->read());
 					
-					if (isset($sizeConfig['width']) && !isset($sizeConfig['height'])) {
-						$sizeConfig['height'] = (int) ($img->height() / $img->width() * $sizeConfig['width']);
+					if (File::isImageTypeMime($file->getMimetype())) {
+						$img = ImageManagerStatic::make($file->read());
+						
+						if (isset($sizeConfig['width']) && !isset($sizeConfig['height'])) {
+							$sizeConfig['height'] = (int) ($img->height() / $img->width() * $sizeConfig['width']);
+						}
+						
+						$method = array_shift($sizeConfig);
+						call_user_func_array([$img, $method], $sizeConfig);
+						$file->put($img->encode());
 					}
-					
-					$method = array_shift($sizeConfig);
-					call_user_func_array([$img, $method], $sizeConfig);
-					$file->put($img->encode());
                 }
             ],
             'file-delete' => [
@@ -126,7 +130,11 @@ class EntryController extends \yii\web\Controller
 		} else {
 			Yii::$app->session->setFlash('error', 'Failed to delete. ');
 				return $this->redirect(['index', 'type' => $model->entryType->handle]);
-		}
-		
+		}	
+	}
+	
+	public function actionView($id) {
+		$model = Content::findByUid($id);
+		return $this->redirect(Yii::$app->urlManagerFrontEnd->createUrl($model->route));
 	}
 }

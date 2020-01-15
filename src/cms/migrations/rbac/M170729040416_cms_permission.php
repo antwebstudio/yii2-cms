@@ -28,6 +28,7 @@ class M170729040416_cms_permission extends \ant\rbac\Migration
 				'create' => ['CMS', [Role::ROLE_ADMIN]],
 				'update' => ['CMS', [Role::ROLE_ADMIN]],
 				'delete' => ['CMS', [Role::ROLE_ADMIN]],
+				'view' => ['CMS', [Role::ROLE_ADMIN]],
 				'image-upload' => ['CMS', [Role::ROLE_ADMIN]],
 				'file-upload' => ['CMS', [Role::ROLE_ADMIN]],
 				'file-delete' => ['CMS', [Role::ROLE_ADMIN]],

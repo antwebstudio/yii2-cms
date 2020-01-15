@@ -16,7 +16,6 @@ use yii\helpers\Html;
 			],
 			[
 				'class' => ActionColumn::className(),
-				'template' => '{update} {delete}',
 			],
 		],
 	]) ?>

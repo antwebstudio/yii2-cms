@@ -31,6 +31,7 @@ class ImageFieldType extends FileFieldType {
 				'id' => $uploadWidgetId,
 				'form' => $form,
 				'fields' => $this->getAttachmentFields(),
+				'maxNumberOfFiles' => $this->maxFile,
 				'clientOptions' => [
 					'buttons' => $this->getButtons($modal),
 				],
