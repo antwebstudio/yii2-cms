@@ -8,5 +8,5 @@ return [
 		//'v1' => \ant\cms\api\v1\Module::class,
 		'backend' => \ant\cms\backend\Module::class,
 	],
-	'depends' => ['file', 'cmsCore'],
+	'depends' => ['file', 'cmsCore', 'category', 'tag'],
 ];

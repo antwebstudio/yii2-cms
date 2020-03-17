@@ -80,6 +80,9 @@ class EntryController extends \yii\web\Controller
 		$dataProvider = new ActiveDataProvider([
 			'query' => $className::find()->type($type),
 			'key' => 'content_uid',
+			'sort' => [
+				'defaultOrder' => ['created_date' => SORT_DESC]
+			],
 		]);
 		
         return $this->render('index', [

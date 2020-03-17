@@ -56,13 +56,20 @@ class Field extends \yii\db\ActiveRecord
 			$label = \ant\helpers\StringHelper::generateTitle($handle);
 		}
 		
-		$field = new static;
-		$field->attributes = [
-			'name' => $label,
+		$field = self::findOne([
 			'handle' => $handle,
 			'type' => $fieldTypeClass,
-		];
-		if (!$field->save()) throw new \Exception(print_r($field->errors, 1));
+		]);
+		
+		if (!isset($field)) {
+			$field = new static;
+			$field->attributes = [
+				'name' => $label,
+				'handle' => $handle,
+				'type' => $fieldTypeClass,
+			];
+			if (!$field->save()) throw new \Exception(print_r($field->errors, 1));
+		}
 		
 		// Add field to entry type
 		$layoutField = new FieldLayoutField();

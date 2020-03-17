@@ -15,6 +15,9 @@ use yii\helpers\Html;
 				'attribute' => 'contentData.name',
 			],
 			[
+				'attribute' => 'created_date',
+			],
+			[
 				'class' => ActionColumn::className(),
 			],
 		],

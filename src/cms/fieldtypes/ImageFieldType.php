@@ -55,10 +55,12 @@ class ImageFieldType extends FileFieldType {
 				'events' => [
 					'click' => new \yii\web\JsExpression('
 						function() {
+							var cssClass = "upload-custom-field-group";
 							var index = $(this).data("index");
 							var $form = $("#widget-'.$uploadWidgetId.'-" + index);
-							//$(".upload-custom-field-group").hide();
+							$("." + cssClass).hide();
 							$form.show();
+							$form.addClass(cssClass);
 							$("#'.$modal->id.' .modal-body").append($form);
 						}
 					'),
