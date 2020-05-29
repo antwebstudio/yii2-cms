@@ -36,7 +36,7 @@ class Entry extends \ant\cms\components\ContentActiveRecord
     public function rules()
     {
         return ArrayHelper::merge(parent::rules(), [
-            [[/*'section_id', */'content_uid'], 'required'],
+            [[/*'section_id', */'content_uid', 'name'], 'required'],
             [['section_id', 'content_uid'], 'integer'],
             [['created_date', 'last_updated', 'published_date', 'expire_date'], 'safe'],
             [['content_uid'], 'exist', 'skipOnError' => true, 'targetClass' => ContentData::className(), 'targetAttribute' => ['content_uid' => 'id']],

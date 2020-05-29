@@ -31,13 +31,14 @@ use Yii;
 class ContentData extends \yii\db\ActiveRecord
 {
 	public function behaviors() {
-		return [
+		$behaviors = [
 			[
-				'class' => \ant\behaviors\SerializeBehavior::className(),
+				'class' => \ant\behaviors\SerializableAttribute::class,
 				'attributes' => ['data'],
-				'serializeMethod' => \ant\behaviors\SerializeBehavior::METHOD_JSON,
 			],
 		];
+		
+		return $behaviors;
 	}
 	
     /**

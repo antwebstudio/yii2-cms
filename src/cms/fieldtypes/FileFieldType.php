@@ -26,6 +26,7 @@ class FileFieldType extends \ant\cms\components\FieldType {
             [
                 'class' => \ant\file\behaviors\AttachmentBehavior::className(),
                 'attribute' => $this->field->handle,
+                'type' => $this->field->handle,
             ],
 		];
 	}

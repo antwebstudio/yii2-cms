@@ -10,6 +10,8 @@ class Content extends \yii\base\Model {
 	
 	public static function findByUid($uid) {
 		$content = ContentData::find()->joinWith('entryType')->andWhere([ContentData::tableName().'.id' => $uid])->one();
+		if (!isset($content)) return;
+		
 		$className = $content->entryType->content_type;
 		
 		if (strpos($className, '\\') === false) {

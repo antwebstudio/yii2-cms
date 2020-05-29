@@ -96,13 +96,12 @@ class Field extends \yii\db\ActiveRecord
 	public function behaviors() {
 		return [
 			[
-				'class' => \ant\behaviors\EventHandlerBehavior::className(),
+				'class' => \ant\behaviors\EventHandlerBehavior::class,
 				'events' => $this->events(),
 			],
 			[
-				'class' => \ant\behaviors\SerializeBehavior::className(),
+				'class' => \ant\behaviors\SerializableAttribute::class,
 				'attributes' => ['settings'],
-				'serializeMethod' => \ant\behaviors\SerializeBehavior::METHOD_JSON,
 			],
 		];
 	}
