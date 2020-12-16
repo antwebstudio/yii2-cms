@@ -115,6 +115,9 @@ class EntryController extends \yii\web\Controller
 		
 		if ($model->load(\Yii::$app->request->post())) {
 			if ($model->save()) {
+				if (Yii::$app->request->post('submit') == 'save-and-create') {
+					return $this->redirect(['create', 'type' => $model->entryType->handle]);
+				}
 				return $this->redirect(['index', 'type' => $model->entryType->handle]);
 			}
 		}

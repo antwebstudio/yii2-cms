@@ -34,4 +34,6 @@ use ant\language\widgets\LanguageSelector;
 	])->label('Date') ?>
 	
 	<?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+
+	<?= Html::submitButton('Save and create', ['name' => 'submit', 'value' => 'save-and-create', 'class' => 'btn btn-default']) ?>
 <?php ActiveForm::end() ?>
