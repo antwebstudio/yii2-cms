@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 use bs\Flatpickr\FlatpickrWidget;
 use ant\language\widgets\LanguageSelector;
 
+if ($model->isNewRecord && !isset($model->status)) $model->status = true;
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
@@ -22,18 +23,25 @@ use ant\language\widgets\LanguageSelector;
 		</div>
 		<?= Html::hiddenInput('language', $language) ?>
 	<?php endif ?>
-	
-	<?= $form->field($model, 'name')->textInput() ?>
-	
-	<?php foreach ($model->entryType->getFields() as $handle => $field): ?>
-		<?= $field->fieldType->backendInput($form, $model) ?>
-	<?php endforeach ?>
-	
-	<?= $form->field($model, 'created_date')->widget(FlatpickrWidget::class, [
-		'clientOptions' => ['enableTime' => true],
-	])->label('Date') ?>
-	
-	<?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
 
-	<?= Html::submitButton('Save and create', ['name' => 'submit', 'value' => 'save-and-create', 'class' => 'btn btn-default']) ?>
+	<div class="row">
+		<div class="col-md-9">
+
+			<?= $form->field($model, 'name')->textInput() ?>
+			
+			<?php foreach ($model->entryType->getFields() as $handle => $field): ?>
+				<?= $field->fieldType->backendInput($form, $model) ?>
+			<?php endforeach ?>
+		</div>
+		<div class="col-md-3">
+			<div class="sticky-top position-sticky">
+				<?= $form->field($model, 'created_date')->widget(FlatpickrWidget::class, [
+					'clientOptions' => ['enableTime' => true],
+				])->label('Date') ?>
+
+				<?= $form->field($model, 'status')->widget(\kartik\switchinput\SwitchInput::class) ?>
+
+				<?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+			</div>
+		</div>
 <?php ActiveForm::end() ?>

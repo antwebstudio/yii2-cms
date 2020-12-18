@@ -20,6 +20,7 @@ abstract class ContentActiveRecord extends \yii\db\ActiveRecord {
 				'class' => \ant\behaviors\TimestampBehavior::className(),
 				'createdAtAttribute' => 'created_date',
 				'updatedAtAttribute' => 'last_updated',
+				'preserveNonEmptyValues' => true,
 			],
 			[
 				'class' => \ant\category\behaviors\CategorizableBehavior::className(),
