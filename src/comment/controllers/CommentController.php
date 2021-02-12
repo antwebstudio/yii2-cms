@@ -98,8 +98,10 @@ class CommentController extends \yii\web\Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-		
-		$this->checkAccess('delete', $model);
+        
+        if (!Yii::$app->user->can('admin')) {
+            $this->checkAccess('delete', $model);
+        }
 		
 		$model->delete();
 

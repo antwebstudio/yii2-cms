@@ -190,7 +190,7 @@ class Comments extends \yii\base\Widget
 				}
 			}, 
 			'delete' => function($model) {				
-				if ($model->created_by == Yii::$app->user->id) {
+				if ($model->created_by == Yii::$app->user->id || Yii::$app->user->can('admin')) {
 					return Html::a('Delete', ['/comment/comment/delete', 'id' => $model->id], array_merge([
 						'data-method' => 'post', 
 						'data-comment-delete' => '',
